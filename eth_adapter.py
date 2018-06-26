@@ -14,9 +14,9 @@ def to_checksum_address(address):
     return web3.toChecksumAddress(address)
 
 
-def store(text, key):
+def store(text):
     tx = create_transaction(text)
-    signed_tx = sign_transaction(tx, key)
+    signed_tx = sign_transaction(tx, private_key)
     tx_hash = send_raw_transaction(signed_tx.rawTransaction)
     return tx_hash
 
