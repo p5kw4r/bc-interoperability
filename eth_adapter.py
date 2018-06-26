@@ -1,9 +1,8 @@
 from web3 import Web3, HTTPProvider
 
-endpoint_url = 'http://localhost:8545'
-web3 = Web3(HTTPProvider(endpoint_url))
+endpoint_uri = 'http://localhost:8545'
+web3 = Web3(HTTPProvider(endpoint_uri))
 
-gas_price = web3.eth.gasPrice
 gas_limit = 90000
 encoding = 'utf-8'
 public_key = '0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe'
@@ -31,7 +30,7 @@ def create_transaction(
         sender=default_address,
         recipient=default_address,
         gas=gas_limit,
-        gas_price=gas_price,
+        gas_price=web3.eth.gasPrice,
         value=0,
         nonce=get_transaction_count(default_address)):
     return {
