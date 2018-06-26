@@ -36,11 +36,11 @@ def to_checksum_address(address):
 
 
 def transaction(
-        nonce=transaction_count(default_account),
-        gas_price=gas_price,
-        gas=gas_limit,
-        to=to_checksum_address('0xd3cda913deb6f67967b99d67acdfa1712c293601'),
-        data=b''
+    nonce=transaction_count(default_account),
+    gas_price=gas_price,
+    gas=gas_limit,
+    to=to_checksum_address('0xd3cda913deb6f67967b99d67acdfa1712c293601'),
+    data=b''
 ):
     return {
         'nonce': nonce,
