@@ -1,11 +1,11 @@
 import sys
 from web3 import Web3, HTTPProvider
 
-gas_limit = 90000
 endpoint_url = 'http://localhost:8545'
-private_key = '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318'
-
 web3 = Web3(HTTPProvider(endpoint_url))
+
+private_key = '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318'
+gas_limit = 90000
 gas_price = web3.eth.gasPrice
 coinbase = web3.eth.coinbase
 
