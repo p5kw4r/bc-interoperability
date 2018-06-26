@@ -45,7 +45,7 @@ def transaction(
 def main(argv=sys.argv):
     signed_tx = sign_transaction(transaction(), private_key)
     print(signed_tx)
-    # send_raw_transaction(signed_tx.rawTransaction)  # sender doesn't have enough funds to send tx
+    send_raw_transaction(signed_tx.rawTransaction)  # sender doesn't have enough funds to send tx
 
 
 if __name__ == '__main__':
