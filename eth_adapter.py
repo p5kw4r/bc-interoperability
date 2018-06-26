@@ -54,12 +54,12 @@ def send_raw_transaction(raw_transaction):
 
 def retrieve(transaction_hash):
     tx = get_transaction(transaction_hash)
-    return extract_text(tx)
-
-
-def extract_text(transaction):
-    return web3.toText(transaction.input)
+    return to_text(tx.input)
 
 
 def get_transaction(transaction_hash):
     return web3.eth.getTransaction(transaction_hash)
+
+
+def to_text(data):
+    return web3.toText(data)
