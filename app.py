@@ -10,16 +10,16 @@ gas_price = web3.eth.gasPrice
 coinbase = web3.eth.coinbase
 
 
-def sign_transaction(tx, key):
-    return web3.eth.account.signTransaction(tx, key)
+def sign_transaction(transaction, key):
+    return web3.eth.account.signTransaction(transaction, key)
 
 
 def transaction_count(account):
     return web3.eth.getTransactionCount(account)
 
 
-def send_raw_transaction(raw_tx):
-    return web3.eth.sendRawTransaction(raw_tx)
+def send_raw_transaction(raw_transaction):
+    return web3.eth.sendRawTransaction(raw_transaction)
 
 
 def to_checksum_address(address):
