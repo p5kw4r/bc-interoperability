@@ -31,7 +31,8 @@ def transaction(
         gas_price=gas_price,
         gas=GAS_LIMIT,
         to=to_checksum_address('0xd3cda913deb6f67967b99d67acdfa1712c293601'),
-        data=b''):
+        data=b''
+):
     return {
         'nonce': nonce,
         'gasPrice': gas_price,
