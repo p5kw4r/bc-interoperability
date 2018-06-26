@@ -1,4 +1,3 @@
-import sys
 from web3 import Web3, HTTPProvider
 
 endpoint_url = 'http://localhost:8545'
@@ -69,7 +68,7 @@ def transaction_with_sender(
     }
 
 
-def main(argv=sys.argv):
+def main():
     tx = transaction()
     signed_tx = sign_transaction(tx, private_key)
     print(signed_tx, '\n')
@@ -84,4 +83,4 @@ def main(argv=sys.argv):
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    main()
