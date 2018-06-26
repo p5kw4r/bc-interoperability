@@ -2,9 +2,13 @@
 
 ## Dependencies
 
-- Web3.py
+This project is built with:
 
-## Setup
+- [Web3.py](https://web3py.readthedocs.io/en/stable/)
+
+## Usage
+
+Install dependencies:
 
 ```
 $ pip install web3
