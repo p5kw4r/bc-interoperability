@@ -1,25 +1,25 @@
 import sys
 from web3 import Web3, HTTPProvider
 
-GAS_LIMIT = 90000
-ENDPOINT_URI = 'http://localhost:8545'
-PRIVATE_KEY = '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318'
+gas_limit = 90000
+endpoint_url = 'http://localhost:8545'
+private_key = '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318'
 
-web3 = Web3(HTTPProvider(ENDPOINT_URI))
+web3 = Web3(HTTPProvider(endpoint_url))
 gas_price = web3.eth.gasPrice
 coinbase = web3.eth.coinbase
 
 
-def sign_transaction(transaction, key):
-    return web3.eth.account.signTransaction(transaction, key)
+def sign_transaction(tx, key):
+    return web3.eth.account.signTransaction(tx, key)
 
 
 def transaction_count(account):
     return web3.eth.getTransactionCount(account)
 
 
-def send_raw_transaction(raw_transaction):
-    return web3.eth.sendRawTransaction(raw_transaction)
+def send_raw_transaction(raw_tx):
+    return web3.eth.sendRawTransaction(raw_tx)
 
 
 def to_checksum_address(address):
@@ -29,7 +29,7 @@ def to_checksum_address(address):
 def transaction(
         nonce=transaction_count(coinbase),
         gas_price=gas_price,
-        gas=GAS_LIMIT,
+        gas=gas_limit,
         to=to_checksum_address('0xd3cda913deb6f67967b99d67acdfa1712c293601'),
         data=b''
 ):
@@ -43,9 +43,9 @@ def transaction(
 
 
 def main(argv=sys.argv):
-    signed_transaction = sign_transaction(transaction(), PRIVATE_KEY)
-    print(signed_transaction)
-    # send_raw_transaction(signed_transaction.rawTransaction)  # sender doesn't have enough funds to send tx
+    signed_tx = sign_transaction(transaction(), private_key)
+    print(signed_tx)
+    # send_raw_transaction(signed_tx.rawTransaction)  # sender doesn't have enough funds to send tx
 
 
 if __name__ == '__main__':
