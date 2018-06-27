@@ -28,7 +28,8 @@ class MCAdapter:
     def extract_data(transaction):
         return transaction['vout'][1]['data'][0]
 
-    def to_text(self, data_hex):
+    @staticmethod
+    def to_text(data_hex):
         text_bytes = unhexlify(data_hex)
         return text_bytes.decode(encoding=encoding)
 
