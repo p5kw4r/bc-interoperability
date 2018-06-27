@@ -1,5 +1,5 @@
 from web3 import Web3, HTTPProvider
-from adapter import Adapter, encoding
+from adapter import Adapter, default_amount, encoding
 
 endpoint_uri = 'http://localhost:8545'
 
@@ -38,7 +38,7 @@ class EthAdapter(Adapter):
             recipient=default_address,
             gas=gas_limit,
             gas_price=web3.eth.gasPrice,
-            value=0,
+            value=default_amount,
             nonce=web3.eth.getTransactionCount(default_address)):
         return {
             'from': sender,

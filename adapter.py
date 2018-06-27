@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+default_amount = 0
 encoding = 'utf-8'
 
 

@@ -1,6 +1,6 @@
 from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
-from adapter import encoding
+from adapter import default_amount, encoding
 
 host = 'localhost'
 port = '7324'
@@ -52,7 +52,7 @@ class MCAdapter:
             data_hex,
             sender=default_address,
             recipient=default_address,
-            amount=0):
+            amount=default_amount):
         return self.client.createrawsendfrom(
             sender,
             {recipient: amount},
