@@ -6,10 +6,29 @@ This project is built with:
 
 - [Web3.py](https://web3py.readthedocs.io/en/stable/)
 
-## Usage
+## Setup
 
-Install dependencies:
+Install dependencies (with virtual environment):
 
 ```
-$ pip install web3
+$ python -m venv venv
+```
+
+Activate virtual environment:
+
+```
+$ source venv/bin/activate
+(venv) $ pip install web3
+```
+
+Deactivate virtual environment:
+
+```
+(venv) $ deactivate
+```
+
+Install dependencies (without virtual environment):
+
+```
+$ pip install --user web3
 ```
