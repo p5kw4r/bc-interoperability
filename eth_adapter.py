@@ -1,7 +1,8 @@
 from web3 import Web3, HTTPProvider
+from adapter import Adapter
 
 
-class EthAdapter:
+class EthAdapter(Adapter):
     endpoint_uri = 'http://localhost:8545'
     web3 = Web3(HTTPProvider(endpoint_uri))
     public_key = '0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe'
