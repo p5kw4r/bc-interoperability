@@ -10,7 +10,9 @@ This project is built with:
 
 ## Setup
 
-### With virtual environment
+### Installation of dependencies
+
+#### With virtual environment
 
 Create a virtual environment within the project (for `python >= 3.3`):
 
@@ -36,7 +38,7 @@ Deactivate virtual environment:
 (venv) $ deactivate
 ```
 
-### Without virtual environment
+#### Without virtual environment
 
 Install dependencies:
 
