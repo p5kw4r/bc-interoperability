@@ -1,5 +1,6 @@
 from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
+from adapter import encoding
 
 host = 'localhost'
 port = '7324'
@@ -9,8 +10,6 @@ rpcpassword = 'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
 
 default_address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
 private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
-
-encoding = 'utf-8'
 
 
 class MCAdapter:

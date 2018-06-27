@@ -1,5 +1,5 @@
 from web3 import Web3, HTTPProvider
-from adapter import Adapter
+from adapter import Adapter, encoding
 
 endpoint_uri = 'http://localhost:8545'
 
@@ -8,7 +8,6 @@ private_key = \
     'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
 gas_limit = 90000
-encoding = 'utf-8'
 
 
 class EthAdapter(Adapter):

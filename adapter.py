@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+encoding = 'utf-8'
+
 
 class Adapter(ABC):
     @abstractmethod
