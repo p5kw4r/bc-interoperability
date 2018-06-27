@@ -6,7 +6,7 @@ A project towards blockchain interoperability.
 
 This project is built with:
 
-- [Web3.py](https://web3py.readthedocs.io/en/stable/)
+- [Web3.py](https://web3py.readthedocs.io/en/stable/) for Ethereum support
 
 ## Setup
 
