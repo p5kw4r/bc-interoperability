@@ -3,7 +3,7 @@ from mc_adapter import MCAdapter
 
 
 def main():
-    message = 'Hello, World!'
+    message = 'Hello, Wörld!'
 
     eth_adapter = EthAdapter()
     tx_hash = eth_adapter.store(message)
