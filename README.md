@@ -1,5 +1,7 @@
 # bc-interoperability
 
+A project towards blockchain interoperability.
+
 ## Dependencies
 
 This project is built with:
