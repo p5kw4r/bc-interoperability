@@ -39,6 +39,11 @@ class MCAdapter:
         signed_tx_hex = self.sign_raw_transaction(tx_hex)
         return self.send_raw_transaction(signed_tx_hex)
 
+    @staticmethod
+    def to_hex(text):
+        text_bytes = bytes(text, encoding=encoding)
+        return hexlify(text_bytes)
+
     def create_raw_send_from(
             self,
             data_hex,
@@ -49,11 +54,6 @@ class MCAdapter:
             sender,
             {recipient: amount},
             [data_hex])
-
-    @staticmethod
-    def to_hex(text):
-        text_bytes = bytes(text, encoding=encoding)
-        return hexlify(text_bytes)
 
     def sign_raw_transaction(self, transaction_hex):
         parent_outputs = []
