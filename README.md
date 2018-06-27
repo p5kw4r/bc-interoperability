@@ -7,6 +7,7 @@ A project towards blockchain interoperability.
 This project is built with:
 
 - [Web3.py](https://web3py.readthedocs.io/en/stable/) for Ethereum support
+- [mcrpc](https://github.com/coblo/mcrpc) for MultiChain support
 
 ## Setup
 
@@ -29,7 +30,7 @@ $ source venv/bin/activate
 Install dependencies:
 
 ```
-(venv) $ pip install web3
+(venv) $ pip install web3 mcrpc
 ```
 
 Deactivate virtual environment:
@@ -43,5 +44,5 @@ Deactivate virtual environment:
 Install dependencies:
 
 ```
-$ pip install --user web3
+$ pip install --user web3 mcrpc
 ```
