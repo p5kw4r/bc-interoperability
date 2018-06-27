@@ -1,16 +1,20 @@
 from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
 
+host = 'localhost'
+port = '7324'
 
-class MCAdapter():
-    host = 'localhost'
-    port = '7324'
-    rpcuser = 'multichainrpc'
-    rpcpassword = 'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
+rpcuser = 'multichainrpc'
+rpcpassword = 'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
+
+default_address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
+private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
+
+encoding = 'utf-8'
+
+
+class MCAdapter:
     client = RpcClient(host, port, rpcuser, rpcpassword)
-    default_address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
-    private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
-    encoding = 'utf-8'
 
     def retrieve(self, transaction_hash):
         tx = self.get_raw_transaction(transaction_hash)
@@ -26,7 +30,7 @@ class MCAdapter():
 
     def to_text(self, data_hex):
         text_bytes = unhexlify(data_hex)
-        return text_bytes.decode(encoding=self.encoding)
+        return text_bytes.decode(encoding=encoding)
 
     def store(self, text):
         data_hex = self.to_hex(text)
@@ -45,8 +49,9 @@ class MCAdapter():
             {recipient: amount},
             [data_hex])
 
-    def to_hex(self, text):
-        text_bytes = bytes(text, encoding=self.encoding)
+    @staticmethod
+    def to_hex(text):
+        text_bytes = bytes(text, encoding=encoding)
         return hexlify(text_bytes)
 
     def sign_raw_transaction(self, transaction_hex):
@@ -54,7 +59,7 @@ class MCAdapter():
         signed = self.client.signrawtransaction(
             transaction_hex,
             parent_outputs,
-            [self.private_key])
+            [private_key])
         if signed['complete']:
             return signed['hex']
 
