@@ -10,7 +10,9 @@ This project is built with:
 
 ## Setup
 
-Install dependencies (with virtual environment):
+### With virtual environment
+
+Create a virtual environment within the project (for `python >= 3.3`):
 
 ```
 $ python -m venv venv
@@ -20,6 +22,11 @@ Activate virtual environment:
 
 ```
 $ source venv/bin/activate
+```
+
+Install dependencies:
+
+```
 (venv) $ pip install web3
 ```
 
@@ -29,7 +36,9 @@ Deactivate virtual environment:
 (venv) $ deactivate
 ```
 
-Install dependencies (without virtual environment):
+### Without virtual environment
+
+Install dependencies:
 
 ```
 $ pip install --user web3
