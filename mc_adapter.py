@@ -1,6 +1,6 @@
 from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
-from config import default_amount, encoding
+from config import amount, encoding
 
 host = 'localhost'
 port = '7324'
@@ -62,7 +62,7 @@ def create_transaction(
         data_hex,
         sender=default_address,
         recipient=default_address,
-        amount=default_amount):
+        amount=amount):
     tx_hex = client.createrawsendfrom(sender, {recipient: amount}, [data_hex])
     return tx_hex
 

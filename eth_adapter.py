@@ -1,12 +1,12 @@
 from web3 import Web3, HTTPProvider
-from config import default_amount, encoding
+from config import amount, encoding
 
 endpoint_uri = 'http://localhost:8545'
 
 web3 = Web3(HTTPProvider(endpoint_uri))
 client = web3.eth
 
-default_address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
+address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 private_key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
 gas_limit = 90000
@@ -49,12 +49,12 @@ def get_transaction_count(address):
 
 def create_transaction(
         data,
-        sender=default_address,
-        recipient=default_address,
+        sender=address,
+        recipient=address,
         gas=gas_limit,
         gas_price=client.gasPrice,
-        value=default_amount,
-        nonce=get_transaction_count(default_address)):
+        value=amount,
+        nonce=get_transaction_count(address)):
     tx = {
         'from': sender,
         'to': recipient,
