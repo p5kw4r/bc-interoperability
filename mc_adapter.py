@@ -20,20 +20,20 @@ private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
 class MCAdapter(Adapter):
     @classmethod
-    def retrieve(cls, transaction_hash):
-        tx = cls.get_transaction(transaction_hash)
+    def retrieve(cls, tx_hash):
+        tx = cls.get_transaction(tx_hash)
         data_hex = cls.extract_data(tx)
         return cls.to_text(data_hex)
 
     @staticmethod
-    def get_transaction(transaction_hash):
-        return client.getrawtransaction(transaction_hash, verbose=1)
+    def get_transaction(tx_hash):
+        return client.getrawtransaction(tx_hash, verbose=1)
 
     @staticmethod
-    def extract_data(transaction):
+    def extract_data(tx):
         # workaround needed because potentially multiple output addresses in
         # single transaction (and also potentially multiple data items)
-        return transaction['vout'][1]['data'][0]
+        return tx['vout'][1]['data'][0]
 
     @staticmethod
     def to_text(data_hex):
@@ -64,15 +64,15 @@ class MCAdapter(Adapter):
             [data_hex])
 
     @staticmethod
-    def sign_transaction(transaction_hex):
+    def sign_transaction(tx_hex):
         parent_outputs = []
         signed_tx = client.signrawtransaction(
-            transaction_hex,
+            tx_hex,
             parent_outputs,
             [private_key])
         if signed_tx['complete']:
             return signed_tx['hex']
 
     @staticmethod
-    def send_raw_transaction(transaction_hash):
-        return client.sendrawtransaction(transaction_hash)
+    def send_raw_transaction(tx_hash):
+        return client.sendrawtransaction(tx_hash)

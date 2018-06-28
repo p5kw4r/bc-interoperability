@@ -15,13 +15,13 @@ gas_limit = 90000
 
 class EthAdapter(Adapter):
     @classmethod
-    def retrieve(cls, transaction_hash):
-        tx = cls.get_transaction(transaction_hash)
+    def retrieve(cls, tx_hash):
+        tx = cls.get_transaction(tx_hash)
         return cls.to_text(tx.input)
 
     @staticmethod
-    def get_transaction(transaction_hash):
-        return client.getTransaction(transaction_hash)
+    def get_transaction(tx_hash):
+        return client.getTransaction(tx_hash)
 
     @staticmethod
     def to_text(data):
@@ -55,9 +55,9 @@ class EthAdapter(Adapter):
         }
 
     @staticmethod
-    def sign_transaction(transaction):
-        return client.account.signTransaction(transaction, private_key)
+    def sign_transaction(tx):
+        return client.account.signTransaction(tx, private_key)
 
     @staticmethod
-    def send_raw_transaction(raw_transaction):
-        return client.sendRawTransaction(raw_transaction)
+    def send_raw_transaction(raw_tx):
+        return client.sendRawTransaction(raw_tx)

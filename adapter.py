@@ -12,5 +12,5 @@ class Adapter(ABC):
 
     @classmethod
     @abstractmethod
-    def retrieve(cls, transaction_hash):
+    def retrieve(cls, tx_hash):
         raise NotImplementedError()
