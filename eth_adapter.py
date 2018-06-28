@@ -7,7 +7,7 @@ web3 = Web3(HTTPProvider(endpoint_uri))
 client = web3.eth
 
 address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
-private_key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
+key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
 
 def retrieve(transaction_hash):
@@ -59,7 +59,7 @@ def estimate_gas(transaction):
 
 
 def sign_transaction(transaction):
-    return client.account.signTransaction(transaction, private_key)
+    return client.account.signTransaction(transaction, key)
 
 
 def send_raw_transaction(transaction):

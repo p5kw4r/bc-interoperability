@@ -15,7 +15,7 @@ client = RpcClient(host, port, rpcuser, rpcpassword)
 # The private key can be found by running `dumpprivkey [address]` command in
 # interactive mode, i.e. `$ multichain-cli [chain-name]`
 address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
-private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
+key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
 
 def retrieve(transaction_hash):
@@ -66,7 +66,7 @@ def sign_transaction(transaction_hex):
     signed_transaction = client.signrawtransaction(
         transaction_hex,
         parent_outputs,
-        [private_key])
+        [key])
     if signed_transaction['complete']:
         signed_transaction_hex = signed_transaction['hex']
         return signed_transaction_hex
