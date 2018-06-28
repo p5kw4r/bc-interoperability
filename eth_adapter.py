@@ -24,7 +24,7 @@ class EthAdapter(Adapter):
 
     @staticmethod
     def to_text(data):
-        return web3.toText(data)
+        return Web3.toText(data)
 
     @classmethod
     def store(cls, text):
