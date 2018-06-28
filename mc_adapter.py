@@ -21,12 +21,12 @@ private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 class MCAdapter(Adapter):
     @classmethod
     def retrieve(cls, transaction_hash):
-        tx = cls.get_raw_transaction(transaction_hash)
+        tx = cls.get_transaction(transaction_hash)
         data_hex = cls.extract_data(tx)
         return cls.to_text(data_hex)
 
     @staticmethod
-    def get_raw_transaction(transaction_hash):
+    def get_transaction(transaction_hash):
         return client.getrawtransaction(transaction_hash, verbose=1)
 
     @staticmethod
@@ -43,8 +43,8 @@ class MCAdapter(Adapter):
     @classmethod
     def store(cls, text):
         data_hex = cls.to_hex(text)
-        tx_hex = cls.create_raw_send_from(data_hex)
-        signed_tx_hex = cls.sign_raw_transaction(tx_hex)
+        tx_hex = cls.create_transaction(data_hex)
+        signed_tx_hex = cls.sign_transaction(tx_hex)
         return cls.send_raw_transaction(signed_tx_hex)
 
     @staticmethod
@@ -53,7 +53,7 @@ class MCAdapter(Adapter):
         return hexlify(text_bytes)
 
     @staticmethod
-    def create_raw_send_from(
+    def create_transaction(
             data_hex,
             sender=default_address,
             recipient=default_address,
@@ -64,14 +64,14 @@ class MCAdapter(Adapter):
             [data_hex])
 
     @staticmethod
-    def sign_raw_transaction(transaction_hex):
+    def sign_transaction(transaction_hex):
         parent_outputs = []
-        signed = client.signrawtransaction(
+        signed_tx = client.signrawtransaction(
             transaction_hex,
             parent_outputs,
             [private_key])
-        if signed['complete']:
-            return signed['hex']
+        if signed_tx['complete']:
+            return signed_tx['hex']
 
     @staticmethod
     def send_raw_transaction(transaction_hash):
