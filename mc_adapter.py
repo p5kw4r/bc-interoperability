@@ -13,7 +13,7 @@ rpcpassword = 'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
 client = RpcClient(host, port, rpcuser, rpcpassword)
 
 # The private key can be found by running `dumpprivkey [address]` command in
-# interactive mode
+# interactive mode, i.e. `$ multichain-cli [chain-name]`
 default_address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
 private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
@@ -31,6 +31,8 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def extract_data(transaction):
+        # workaround needed because potentially multiple output addresses in
+        # single transaction (and also potentially multiple data items)
         return transaction['vout'][1]['data'][0]
 
     @staticmethod
