@@ -49,8 +49,8 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def to_hex(text):
-        text_bytes = bytes(text, encoding=encoding)
-        return hexlify(text_bytes)
+        data = bytes(text, encoding=encoding)
+        return hexlify(data)
 
     @staticmethod
     def create_transaction(
