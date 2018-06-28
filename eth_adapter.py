@@ -3,7 +3,7 @@ from adapter import Adapter, default_amount, encoding
 
 endpoint_uri = 'http://localhost:8545'
 
-public_key = '0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe'
+default_address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 private_key = \
     'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
@@ -12,7 +12,6 @@ gas_limit = 90000
 
 class EthAdapter(Adapter):
     web3 = Web3(HTTPProvider(endpoint_uri))
-    default_address = web3.toChecksumAddress(public_key)
 
     def retrieve(self, transaction_hash):
         tx = self.get_transaction(transaction_hash)
