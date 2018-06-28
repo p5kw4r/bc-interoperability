@@ -14,7 +14,7 @@ client = RpcClient(host, port, rpcuser, rpcpassword)
 
 # The private key can be found by running `dumpprivkey [address]` command in
 # interactive mode, i.e. `$ multichain-cli [chain-name]`
-default_address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
+address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
 private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
 
@@ -60,8 +60,8 @@ def to_hex(text):
 
 def create_transaction(
         data_hex,
-        sender=default_address,
-        recipient=default_address,
+        sender=address,
+        recipient=address,
         amount=amount):
     tx_hex = client.createrawsendfrom(sender, {recipient: amount}, [data_hex])
     return tx_hex
