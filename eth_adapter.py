@@ -9,8 +9,6 @@ client = web3.eth
 address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 private_key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
-gas_limit = 90000
-
 
 def retrieve(tx_hash):
     tx = get_transaction(tx_hash)
@@ -42,29 +40,27 @@ def store(text):
     return tx_hash
 
 
-def get_transaction_count(address):
+def get_transaction_count():
     tx_count = client.getTransactionCount(address)
     return tx_count
 
 
-def create_transaction(
-        data,
-        sender=address,
-        recipient=address,
-        gas=gas_limit,
-        gas_price=client.gasPrice,
-        value=amount,
-        nonce=get_transaction_count(address)):
+def create_transaction(data):
     tx = {
-        'from': sender,
-        'to': recipient,
-        'gas': gas,
-        'gasPrice': gas_price,
-        'value': value,
+        'from': address,
+        'to': address,
+        'gasPrice': client.gasPrice,
+        'value': amount,
         'data': data,
-        'nonce': nonce
+        'nonce': get_transaction_count()
     }
+    tx['gas'] = estimate_gas(tx)
     return tx
+
+
+def estimate_gas(tx):
+    estimate = client.estimateGas(tx)
+    return estimate
 
 
 def sign_transaction(tx):

@@ -58,12 +58,8 @@ def to_hex(text):
     return data_hex
 
 
-def create_transaction(
-        data_hex,
-        sender=address,
-        recipient=address,
-        amount=amount):
-    tx_hex = client.createrawsendfrom(sender, {recipient: amount}, [data_hex])
+def create_transaction(data_hex):
+    tx_hex = client.createrawsendfrom(address, {address: amount}, [data_hex])
     return tx_hex
 
 
