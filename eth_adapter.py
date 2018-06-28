@@ -13,10 +13,10 @@ gas_limit = 90000
 
 
 class EthAdapter(Adapter):
-    @staticmethod
-    def retrieve(transaction_hash):
-        tx = EthAdapter.get_transaction(transaction_hash)
-        return EthAdapter.to_text(tx.input)
+    @classmethod
+    def retrieve(cls, transaction_hash):
+        tx = cls.get_transaction(transaction_hash)
+        return cls.to_text(tx.input)
 
     @staticmethod
     def get_transaction(transaction_hash):
@@ -26,12 +26,12 @@ class EthAdapter(Adapter):
     def to_text(data):
         return web3.toText(data)
 
-    @staticmethod
-    def store(text):
+    @classmethod
+    def store(cls, text):
         data = bytes(text, encoding=encoding)
-        tx = EthAdapter.create_transaction(data)
-        signed_tx = EthAdapter.sign_transaction(tx)
-        tx_hash = EthAdapter.send_raw_transaction(signed_tx.rawTransaction)
+        tx = cls.create_transaction(data)
+        signed_tx = cls.sign_transaction(tx)
+        tx_hash = cls.send_raw_transaction(signed_tx.rawTransaction)
         return tx_hash
 
     @staticmethod
