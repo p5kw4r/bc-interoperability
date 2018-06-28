@@ -1,16 +1,16 @@
-from eth_adapter import EthAdapter
-from mc_adapter import MCAdapter
+import eth_adapter
+import mc_adapter
 
 
 def main():
     message = 'Hello, Wörld!'
 
-    tx_hash = EthAdapter.store(message)
-    text = EthAdapter.retrieve(tx_hash)
+    tx_hash = eth_adapter.store(message)
+    text = eth_adapter.retrieve(tx_hash)
     print(text)
 
-    tx_hash = MCAdapter.store(message)
-    text = MCAdapter.retrieve(tx_hash)
+    tx_hash = mc_adapter.store(message)
+    text = mc_adapter.retrieve(tx_hash)
     print(text)
 
 
