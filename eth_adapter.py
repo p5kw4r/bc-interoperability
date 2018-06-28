@@ -4,6 +4,7 @@ from adapter import Adapter, default_amount, encoding
 endpoint_uri = 'http://localhost:8545'
 
 web3 = Web3(HTTPProvider(endpoint_uri))
+client = web3.eth
 
 default_address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 private_key = \
@@ -20,7 +21,7 @@ class EthAdapter(Adapter):
 
     @staticmethod
     def get_transaction(transaction_hash):
-        return web3.eth.getTransaction(transaction_hash)
+        return client.getTransaction(transaction_hash)
 
     @staticmethod
     def to_text(data):
@@ -40,9 +41,9 @@ class EthAdapter(Adapter):
             sender=default_address,
             recipient=default_address,
             gas=gas_limit,
-            gas_price=web3.eth.gasPrice,
+            gas_price=client.gasPrice,
             value=default_amount,
-            nonce=web3.eth.getTransactionCount(default_address)):
+            nonce=client.getTransactionCount(default_address)):
         return {
             'from': sender,
             'to': recipient,
@@ -55,10 +56,8 @@ class EthAdapter(Adapter):
 
     @staticmethod
     def sign_transaction(transaction):
-        return web3.eth.account.signTransaction(
-            transaction,
-            private_key)
+        return client.account.signTransaction(transaction, private_key)
 
     @staticmethod
     def send_raw_transaction(raw_transaction):
-        return web3.eth.sendRawTransaction(raw_transaction)
+        return client.sendRawTransaction(raw_transaction)
