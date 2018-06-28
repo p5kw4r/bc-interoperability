@@ -5,10 +5,12 @@ encoding = 'utf-8'
 
 
 class Adapter(ABC):
+    @staticmethod
     @abstractmethod
-    def store(self, text):
+    def store(text):
         raise NotImplementedError()
 
+    @staticmethod
     @abstractmethod
-    def retrieve(self, transaction_hash):
+    def retrieve(transaction_hash):
         raise NotImplementedError()

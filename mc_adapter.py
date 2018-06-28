@@ -19,10 +19,11 @@ private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
 
 class MCAdapter(Adapter):
-    def retrieve(self, transaction_hash):
-        tx = self.get_raw_transaction(transaction_hash)
-        data_hex = self.extract_data(tx)
-        return self.to_text(data_hex)
+    @staticmethod
+    def retrieve(transaction_hash):
+        tx = MCAdapter.get_raw_transaction(transaction_hash)
+        data_hex = MCAdapter.extract_data(tx)
+        return MCAdapter.to_text(data_hex)
 
     @staticmethod
     def get_raw_transaction(transaction_hash):
@@ -37,11 +38,12 @@ class MCAdapter(Adapter):
         text_bytes = unhexlify(data_hex)
         return text_bytes.decode(encoding=encoding)
 
-    def store(self, text):
-        data_hex = self.to_hex(text)
-        tx_hex = self.create_raw_send_from(data_hex)
-        signed_tx_hex = self.sign_raw_transaction(tx_hex)
-        return self.send_raw_transaction(signed_tx_hex)
+    @staticmethod
+    def store(text):
+        data_hex = MCAdapter.to_hex(text)
+        tx_hex = MCAdapter.create_raw_send_from(data_hex)
+        signed_tx_hex = MCAdapter.sign_raw_transaction(tx_hex)
+        return MCAdapter.send_raw_transaction(signed_tx_hex)
 
     @staticmethod
     def to_hex(text):

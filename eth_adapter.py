@@ -3,6 +3,8 @@ from adapter import Adapter, default_amount, encoding
 
 endpoint_uri = 'http://localhost:8545'
 
+web3 = Web3(HTTPProvider(endpoint_uri))
+
 default_address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 private_key = \
     'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
@@ -11,23 +13,25 @@ gas_limit = 90000
 
 
 class EthAdapter(Adapter):
-    web3 = Web3(HTTPProvider(endpoint_uri))
+    @staticmethod
+    def retrieve(transaction_hash):
+        tx = EthAdapter.get_transaction(transaction_hash)
+        return EthAdapter.to_text(tx.input)
 
-    def retrieve(self, transaction_hash):
-        tx = self.get_transaction(transaction_hash)
-        return self.to_text(tx.input)
+    @staticmethod
+    def get_transaction(transaction_hash):
+        return web3.eth.getTransaction(transaction_hash)
 
-    def get_transaction(self, transaction_hash):
-        return self.web3.eth.getTransaction(transaction_hash)
+    @staticmethod
+    def to_text(data):
+        return web3.toText(data)
 
-    def to_text(self, data):
-        return self.web3.toText(data)
-
-    def store(self, text):
+    @staticmethod
+    def store(text):
         data = bytes(text, encoding=encoding)
-        tx = self.create_transaction(data)
-        signed_tx = self.sign_transaction(tx)
-        tx_hash = self.send_raw_transaction(signed_tx.rawTransaction)
+        tx = EthAdapter.create_transaction(data)
+        signed_tx = EthAdapter.sign_transaction(tx)
+        tx_hash = EthAdapter.send_raw_transaction(signed_tx.rawTransaction)
         return tx_hash
 
     @staticmethod
@@ -49,8 +53,12 @@ class EthAdapter(Adapter):
             'nonce': nonce
         }
 
-    def sign_transaction(self, transaction):
-        return self.web3.eth.account.signTransaction(transaction, private_key)
+    @staticmethod
+    def sign_transaction(transaction):
+        return web3.eth.account.signTransaction(
+            transaction,
+            private_key)
 
-    def send_raw_transaction(self, raw_transaction):
-        return self.web3.eth.sendRawTransaction(raw_transaction)
+    @staticmethod
+    def send_raw_transaction(raw_transaction):
+        return web3.eth.sendRawTransaction(raw_transaction)
