@@ -18,59 +18,60 @@ address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
 private_key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
 
-def retrieve(tx_hash):
-    tx = get_transaction(tx_hash)
-    data_hex = extract_data(tx)
-    text = to_text(data_hex)
-    return text
+def retrieve(transaction_hash):
+    transaction = get_transaction(transaction_hash)
+    data_hex = extract_data(transaction)
+    return to_text(data_hex)
 
 
-def get_transaction(tx_hash):
-    tx = client.getrawtransaction(tx_hash, verbose=1)
-    return tx
+def get_transaction(transaction_hash):
+    return client.getrawtransaction(transaction_hash, verbose=1)
 
 
-def extract_data(tx):
+def extract_data(transaction):
     # workaround needed because potentially multiple output addresses in
     # single transaction (and also potentially multiple data items)
-    output = tx['vout'][1]
-    data = output['data'][0]
-    return data
+    output = transaction['vout'][1]
+    return output['data'][0]
 
 
 def to_text(data_hex):
     text_bytes = unhexlify(data_hex)
-    text = text_bytes.decode(encoding=encoding)
-    return text
+    return text_bytes.decode(encoding=encoding)
 
 
 def store(text):
     data_hex = to_hex(text)
-    tx_hex = create_transaction(data_hex)
-    signed_tx_hex = sign_transaction(tx_hex)
-    tx_hash = send_raw_transaction(signed_tx_hex)
-    return tx_hash
+    transaction_hex = create_transaction(data_hex)
+    signed_transaction_hex = sign_transaction(transaction_hex)
+    transaction_hash = send_raw_transaction(signed_transaction_hex)
+    return transaction_hash
 
 
 def to_hex(text):
     data = bytes(text, encoding=encoding)
-    data_hex = hexlify(data)
-    return data_hex
+    return hexlify(data)
 
 
 def create_transaction(data_hex):
-    tx_hex = client.createrawsendfrom(address, {address: amount}, [data_hex])
-    return tx_hex
+    transaction_hex = client.createrawsendfrom(
+        address,
+        {address: amount},
+        [data_hex])
+    return transaction_hex
 
 
-def sign_transaction(tx_hex):
+def sign_transaction(transaction_hex):
     parent_outputs = []
-    signed_tx = client.signrawtransaction(tx_hex, parent_outputs, [private_key])
-    if signed_tx['complete']:
-        signed_tx_hex = signed_tx['hex']
-        return signed_tx_hex
+    signed_transaction = client.signrawtransaction(
+        transaction_hex,
+        parent_outputs,
+        [private_key])
+    if signed_transaction['complete']:
+        signed_transaction_hex = signed_transaction['hex']
+        return signed_transaction_hex
 
 
-def send_raw_transaction(tx_hex):
-    tx_hash = client.sendrawtransaction(tx_hex)
-    return tx_hash
+def send_raw_transaction(transaction_hex):
+    transaction_hash = client.sendrawtransaction(transaction_hex)
+    return transaction_hash

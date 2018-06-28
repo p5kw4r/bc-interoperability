@@ -3,15 +3,15 @@ import mc_adapter
 
 
 def main():
-    message = 'Hello, Wörld!'
+    original_message = 'Hello, Wörld!'
 
-    tx_hash = eth_adapter.store(message)
-    text = eth_adapter.retrieve(tx_hash)
-    print(text)
+    transaction_hash = eth_adapter.store(original_message)
+    retrieved_message = eth_adapter.retrieve(transaction_hash)
+    print(retrieved_message)
 
-    tx_hash = mc_adapter.store(message)
-    text = mc_adapter.retrieve(tx_hash)
-    print(text)
+    transaction_hash = mc_adapter.store(original_message)
+    retrieved_message = mc_adapter.retrieve(transaction_hash)
+    print(retrieved_message)
 
 
 if __name__ == '__main__':

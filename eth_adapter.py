@@ -10,43 +10,39 @@ address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 private_key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
 
-def retrieve(tx_hash):
-    tx = get_transaction(tx_hash)
-    data = extract_data(tx)
-    text = to_text(data)
-    return text
+def retrieve(transaction_hash):
+    transaction = get_transaction(transaction_hash)
+    data = extract_data(transaction)
+    return to_text(data)
 
 
-def get_transaction(tx_hash):
-    tx = client.getTransaction(tx_hash)
-    return tx
+def get_transaction(transaction_hash):
+    transaction = client.getTransaction(transaction_hash)
+    return transaction
 
 
-def extract_data(tx):
-    data = tx.input
-    return data
+def extract_data(transaction):
+    return transaction.input
 
 
 def to_text(data):
-    text = Web3.toText(data)
-    return text
+    return Web3.toText(data)
 
 
 def store(text):
     data = bytes(text, encoding=encoding)
-    tx = create_transaction(data)
-    signed_tx = sign_transaction(tx)
-    tx_hash = send_raw_transaction(signed_tx.rawTransaction)
-    return tx_hash
+    transaction = create_transaction(data)
+    signed_transaction = sign_transaction(transaction)
+    transaction_hash = send_raw_transaction(signed_transaction.rawTransaction)
+    return transaction_hash
 
 
 def get_transaction_count():
-    tx_count = client.getTransactionCount(address)
-    return tx_count
+    return client.getTransactionCount(address)
 
 
 def create_transaction(data):
-    tx = {
+    transaction = {
         'from': address,
         'to': address,
         'gasPrice': client.gasPrice,
@@ -54,20 +50,18 @@ def create_transaction(data):
         'data': data,
         'nonce': get_transaction_count()
     }
-    tx['gas'] = estimate_gas(tx)
-    return tx
+    transaction['gas'] = estimate_gas(transaction)
+    return transaction
 
 
-def estimate_gas(tx):
-    estimate = client.estimateGas(tx)
-    return estimate
+def estimate_gas(transaction):
+    return client.estimateGas(transaction)
 
 
-def sign_transaction(tx):
-    signed_tx = client.account.signTransaction(tx, private_key)
-    return signed_tx
+def sign_transaction(transaction):
+    return client.account.signTransaction(transaction, private_key)
 
 
-def send_raw_transaction(tx):
-    tx_hash = client.sendRawTransaction(tx)
-    return tx_hash
+def send_raw_transaction(transaction):
+    transaction_hash = client.sendRawTransaction(transaction)
+    return transaction_hash
