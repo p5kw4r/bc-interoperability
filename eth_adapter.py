@@ -13,17 +13,28 @@ private_key = \
 gas_limit = 90000
 
 
+def get_transaction_count(address):
+    tx_count = client.getTransactionCount(address)
+    return tx_count
+
+
 class EthAdapter(Adapter):
     @classmethod
     def retrieve(cls, tx_hash):
         tx = cls.get_transaction(tx_hash)
-        text = cls.to_text(tx.input)
+        data = cls.extract_data(tx)
+        text = cls.to_text(data)
         return text
 
     @staticmethod
     def get_transaction(tx_hash):
         tx = client.getTransaction(tx_hash)
         return tx
+
+    @staticmethod
+    def extract_data(tx):
+        data = tx.input
+        return data
 
     @staticmethod
     def to_text(data):
@@ -46,7 +57,7 @@ class EthAdapter(Adapter):
             gas=gas_limit,
             gas_price=client.gasPrice,
             value=default_amount,
-            nonce=client.getTransactionCount(default_address)):
+            nonce=get_transaction_count(default_address)):
         tx = {
             'from': sender,
             'to': recipient,
@@ -64,6 +75,6 @@ class EthAdapter(Adapter):
         return signed_tx
 
     @staticmethod
-    def send_raw_transaction(raw_tx):
-        tx_hash = client.sendRawTransaction(raw_tx)
+    def send_raw_transaction(tx):
+        tx_hash = client.sendRawTransaction(tx)
         return tx_hash
