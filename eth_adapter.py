@@ -17,15 +17,18 @@ class EthAdapter(Adapter):
     @classmethod
     def retrieve(cls, tx_hash):
         tx = cls.get_transaction(tx_hash)
-        return cls.to_text(tx.input)
+        text = cls.to_text(tx.input)
+        return text
 
     @staticmethod
     def get_transaction(tx_hash):
-        return client.getTransaction(tx_hash)
+        tx = client.getTransaction(tx_hash)
+        return tx
 
     @staticmethod
     def to_text(data):
-        return Web3.toText(data)
+        text = Web3.toText(data)
+        return text
 
     @classmethod
     def store(cls, text):
@@ -44,7 +47,7 @@ class EthAdapter(Adapter):
             gas_price=client.gasPrice,
             value=default_amount,
             nonce=client.getTransactionCount(default_address)):
-        return {
+        tx = {
             'from': sender,
             'to': recipient,
             'gas': gas,
@@ -53,11 +56,14 @@ class EthAdapter(Adapter):
             'data': data,
             'nonce': nonce
         }
+        return tx
 
     @staticmethod
     def sign_transaction(tx):
-        return client.account.signTransaction(tx, private_key)
+        signed_tx = client.account.signTransaction(tx, private_key)
+        return signed_tx
 
     @staticmethod
     def send_raw_transaction(raw_tx):
-        return client.sendRawTransaction(raw_tx)
+        tx_hash = client.sendRawTransaction(raw_tx)
+        return tx_hash

@@ -23,34 +23,41 @@ class MCAdapter(Adapter):
     def retrieve(cls, tx_hash):
         tx = cls.get_transaction(tx_hash)
         data_hex = cls.extract_data(tx)
-        return cls.to_text(data_hex)
+        text = cls.to_text(data_hex)
+        return text
 
     @staticmethod
     def get_transaction(tx_hash):
-        return client.getrawtransaction(tx_hash, verbose=1)
+        tx = client.getrawtransaction(tx_hash, verbose=1)
+        return tx
 
     @staticmethod
     def extract_data(tx):
         # workaround needed because potentially multiple output addresses in
         # single transaction (and also potentially multiple data items)
-        return tx['vout'][1]['data'][0]
+        output = tx['vout'][1]
+        data = output['data'][0]
+        return data
 
     @staticmethod
     def to_text(data_hex):
         text_bytes = unhexlify(data_hex)
-        return text_bytes.decode(encoding=encoding)
+        text = text_bytes.decode(encoding=encoding)
+        return text
 
     @classmethod
     def store(cls, text):
         data_hex = cls.to_hex(text)
         tx_hex = cls.create_transaction(data_hex)
         signed_tx_hex = cls.sign_transaction(tx_hex)
-        return cls.send_raw_transaction(signed_tx_hex)
+        tx_hash = cls.send_raw_transaction(signed_tx_hex)
+        return tx_hash
 
     @staticmethod
     def to_hex(text):
         data = bytes(text, encoding=encoding)
-        return hexlify(data)
+        data_hex = hexlify(data)
+        return data_hex
 
     @staticmethod
     def create_transaction(
@@ -58,10 +65,11 @@ class MCAdapter(Adapter):
             sender=default_address,
             recipient=default_address,
             amount=default_amount):
-        return client.createrawsendfrom(
+        tx_hex = client.createrawsendfrom(
             sender,
             {recipient: amount},
             [data_hex])
+        return tx_hex
 
     @staticmethod
     def sign_transaction(tx_hex):
@@ -71,8 +79,10 @@ class MCAdapter(Adapter):
             parent_outputs,
             [private_key])
         if signed_tx['complete']:
-            return signed_tx['hex']
+            signed_tx_hex = signed_tx['hex']
+            return signed_tx_hex
 
     @staticmethod
-    def send_raw_transaction(tx_hash):
-        return client.sendrawtransaction(tx_hash)
+    def send_raw_transaction(tx_hex):
+        tx_hash = client.sendrawtransaction(tx_hex)
+        return tx_hash
