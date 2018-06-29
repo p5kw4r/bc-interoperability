@@ -17,8 +17,7 @@ def retrieve(transaction_hash):
 
 
 def get_transaction(transaction_hash):
-    transaction = client.getTransaction(transaction_hash)
-    return transaction
+    return client.getTransaction(transaction_hash)
 
 
 def extract_data(transaction):

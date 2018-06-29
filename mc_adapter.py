@@ -67,9 +67,8 @@ def sign_transaction(transaction_hex):
         transaction_hex,
         parent_outputs,
         [key])
-    if signed_transaction['complete']:
-        signed_transaction_hex = signed_transaction['hex']
-        return signed_transaction_hex
+    assert signed_transaction['complete']
+    return signed_transaction['hex']
 
 
 def send_raw_transaction(transaction_hex):
