@@ -41,8 +41,7 @@ def to_text(data_hex):
 
 
 def store(text):
-    data_hex = to_hex(text)
-    transaction_hex = create_transaction(data_hex)
+    transaction_hex = create_transaction(text)
     signed_transaction_hex = sign_transaction(transaction_hex)
     transaction_hash = send_raw_transaction(signed_transaction_hex)
     return transaction_hash
@@ -53,11 +52,11 @@ def to_hex(text):
     return hexlify(data)
 
 
-def create_transaction(data_hex):
+def create_transaction(text):
     transaction_hex = client.createrawsendfrom(
         address,
         {address: amount},
-        [data_hex])
+        [to_hex(text)])
     return transaction_hex
 
 

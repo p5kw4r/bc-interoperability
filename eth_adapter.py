@@ -29,8 +29,7 @@ def to_text(data):
 
 
 def store(text):
-    data = bytes(text, encoding=encoding)
-    transaction = create_transaction(data)
+    transaction = create_transaction(text)
     signed_transaction = sign_transaction(transaction)
     transaction_hash = send_raw_transaction(signed_transaction.rawTransaction)
     return transaction_hash
@@ -40,13 +39,13 @@ def get_transaction_count():
     return client.getTransactionCount(address)
 
 
-def create_transaction(data):
+def create_transaction(text):
     transaction = {
         'from': address,
         'to': address,
         'gasPrice': client.gasPrice,
         'value': amount,
-        'data': data,
+        'data': bytes(text, encoding=encoding),
         'nonce': get_transaction_count()
     }
     transaction['gas'] = estimate_gas(transaction)
