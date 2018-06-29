@@ -1,5 +1,6 @@
 from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
+from adapter import Adapter
 from config import amount, encoding
 
 host = 'localhost'
@@ -18,58 +19,48 @@ address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
 key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
 
 
-def retrieve(transaction_hash):
-    transaction = get_transaction(transaction_hash)
-    data_hex = extract_data(transaction)
-    return to_text(data_hex)
+class MCAdapter(Adapter):
+    @staticmethod
+    def get_transaction(transaction_hash):
+        return client.getrawtransaction(transaction_hash, verbose=1)
 
+    @staticmethod
+    def extract_data(transaction):
+        # workaround needed because potentially multiple output addresses in
+        # single transaction (and also potentially multiple data items)
+        output = transaction['vout'][1]
+        return output['data'][0]
 
-def get_transaction(transaction_hash):
-    return client.getrawtransaction(transaction_hash, verbose=1)
+    @staticmethod
+    def to_text(data_hex):
+        text_bytes = unhexlify(data_hex)
+        return text_bytes.decode(encoding=encoding)
 
+    @staticmethod
+    def to_hex(text):
+        data = bytes(text, encoding=encoding)
+        return hexlify(data)
 
-def extract_data(transaction):
-    # workaround needed because potentially multiple output addresses in
-    # single transaction (and also potentially multiple data items)
-    output = transaction['vout'][1]
-    return output['data'][0]
+    @classmethod
+    def create_transaction(cls, text):
+        data_hex = cls.to_hex(text)
+        transaction_hex = client.createrawsendfrom(
+            address,
+            {address: amount},
+            [data_hex])
+        return transaction_hex
 
+    @staticmethod
+    def sign_transaction(transaction_hex):
+        parent_outputs = []
+        signed_transaction = client.signrawtransaction(
+            transaction_hex,
+            parent_outputs,
+            [key])
+        assert signed_transaction['complete']
+        return signed_transaction['hex']
 
-def to_text(data_hex):
-    text_bytes = unhexlify(data_hex)
-    return text_bytes.decode(encoding=encoding)
-
-
-def store(text):
-    transaction_hex = create_transaction(text)
-    signed_transaction_hex = sign_transaction(transaction_hex)
-    transaction_hash = send_raw_transaction(signed_transaction_hex)
-    return transaction_hash
-
-
-def to_hex(text):
-    data = bytes(text, encoding=encoding)
-    return hexlify(data)
-
-
-def create_transaction(text):
-    transaction_hex = client.createrawsendfrom(
-        address,
-        {address: amount},
-        [to_hex(text)])
-    return transaction_hex
-
-
-def sign_transaction(transaction_hex):
-    parent_outputs = []
-    signed_transaction = client.signrawtransaction(
-        transaction_hex,
-        parent_outputs,
-        [key])
-    assert signed_transaction['complete']
-    return signed_transaction['hex']
-
-
-def send_raw_transaction(transaction_hex):
-    transaction_hash = client.sendrawtransaction(transaction_hex)
-    return transaction_hash
+    @staticmethod
+    def send_raw_transaction(transaction_hex):
+        transaction_hash = client.sendrawtransaction(transaction_hex)
+        return transaction_hash
