@@ -2,15 +2,20 @@ from abc import ABC, abstractmethod
 
 
 class Adapter(ABC):
+    @property
+    @abstractmethod
+    def client(self):
+        raise NotImplementedError()
+
     @classmethod
     def retrieve(cls, transaction_hash):
         transaction = cls.get_transaction(transaction_hash)
         data = cls.extract_data(transaction)
         return cls.to_text(data)
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def get_transaction(transaction_hash):
+    def get_transaction(cls, transaction_hash):
         raise NotImplementedError()
 
     @staticmethod
@@ -35,12 +40,12 @@ class Adapter(ABC):
     def create_transaction(text):
         raise NotImplementedError()
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def sign_transaction(transaction):
+    def sign_transaction(cls, transaction):
         raise NotImplementedError()
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def send_raw_transaction(transaction):
+    def send_raw_transaction(cls, transaction):
         raise NotImplementedError()

@@ -4,17 +4,17 @@ from config import amount, encoding
 
 endpoint_uri = 'http://localhost:8545'
 
-web3 = Web3(HTTPProvider(endpoint_uri))
-client = web3.eth
-
 address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
 key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
 
 class EthAdapter(Adapter):
-    @staticmethod
-    def get_transaction(transaction_hash):
-        return client.getTransaction(transaction_hash)
+    web3 = Web3(HTTPProvider(endpoint_uri))
+    client = web3.eth
+
+    @classmethod
+    def get_transaction(cls, transaction_hash):
+        return cls.client.getTransaction(transaction_hash)
 
     @staticmethod
     def extract_data(transaction):
@@ -24,9 +24,9 @@ class EthAdapter(Adapter):
     def to_text(data):
         return Web3.toText(data)
 
-    @staticmethod
-    def get_transaction_count():
-        return client.getTransactionCount(address)
+    @classmethod
+    def get_transaction_count(cls):
+        return cls.client.getTransactionCount(address)
 
     @classmethod
     def create_transaction(cls, text):
@@ -34,7 +34,7 @@ class EthAdapter(Adapter):
         transaction = {
             'from': address,
             'to': address,
-            'gasPrice': client.gasPrice,
+            'gasPrice': cls.client.gasPrice,
             'value': amount,
             'data': data,
             'nonce': cls.get_transaction_count()
@@ -42,16 +42,16 @@ class EthAdapter(Adapter):
         transaction['gas'] = cls.estimate_gas(transaction)
         return transaction
 
-    @staticmethod
-    def estimate_gas(transaction):
-        return client.estimateGas(transaction)
+    @classmethod
+    def estimate_gas(cls, transaction):
+        return cls.client.estimateGas(transaction)
 
-    @staticmethod
-    def sign_transaction(transaction):
-        result = client.account.signTransaction(transaction, key)
+    @classmethod
+    def sign_transaction(cls, transaction):
+        result = cls.client.account.signTransaction(transaction, key)
         return result.rawTransaction
 
-    @staticmethod
-    def send_raw_transaction(transaction):
-        transaction_hash = client.sendRawTransaction(transaction)
+    @classmethod
+    def send_raw_transaction(cls, transaction):
+        transaction_hash = cls.client.sendRawTransaction(transaction)
         return transaction_hash
