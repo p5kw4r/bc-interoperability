@@ -5,7 +5,7 @@ class Adapter(ABC):
     @property
     @abstractmethod
     def client(self):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     def retrieve(cls, transaction_hash):
@@ -16,17 +16,17 @@ class Adapter(ABC):
     @classmethod
     @abstractmethod
     def get_transaction(cls, transaction_hash):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @staticmethod
     @abstractmethod
     def extract_data(transaction):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @staticmethod
     @abstractmethod
     def to_text(data):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     def store(cls, text):
@@ -38,14 +38,14 @@ class Adapter(ABC):
     @staticmethod
     @abstractmethod
     def create_transaction(text):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     @abstractmethod
     def sign_transaction(cls, transaction):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     @abstractmethod
     def send_raw_transaction(cls, transaction):
-        raise NotImplementedError()
+        raise NotImplementedError
