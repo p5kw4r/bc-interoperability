@@ -30,13 +30,12 @@ class EthAdapter(Adapter):
 
     @classmethod
     def create_transaction(cls, text):
-        data = bytes(text, encoding=encoding)
         transaction = {
             'from': address,
             'to': address,
             'gasPrice': cls.client.gasPrice,
             'value': amount,
-            'data': data,
+            'data': bytes(text, encoding=encoding),
             'nonce': cls.get_transaction_count()
         }
         transaction['gas'] = cls.estimate_gas(transaction)
