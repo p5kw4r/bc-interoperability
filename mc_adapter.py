@@ -33,8 +33,8 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def to_text(data_hex):
-        text_bytes = unhexlify(data_hex)
-        return text_bytes.decode(encoding=encoding)
+        data = unhexlify(data_hex)
+        return data.decode(encoding=encoding)
 
     @staticmethod
     def to_hex(text):
