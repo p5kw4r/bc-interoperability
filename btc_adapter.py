@@ -3,9 +3,6 @@ from bitcoinrpc.authproxy import AuthServiceProxy
 from adapter import Adapter
 from config import encoding
 
-minconf = 0
-maxconf = 999999
-
 # The API credentials are stored in `~/.bitcoin/bitcoin.conf`
 rpcuser = 'bitcoinrpc'
 rpcpassword = 'f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae'
