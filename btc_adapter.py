@@ -35,12 +35,6 @@ class BTCAdapter(Adapter):
         data = unhexlify(data_hex)
         return data.decode(encoding=encoding)
 
-    @staticmethod
-    def to_hex(text):
-        data = bytes(text, encoding=encoding)
-        data_hex = hexlify(data)
-        return data_hex.decode(encoding=encoding)
-
     @classmethod
     def create_transaction(cls, text):
         unspent_outputs = cls.list_unspent_outputs()
@@ -60,6 +54,12 @@ class BTCAdapter(Adapter):
         total_amount = cls.total_amount(unspent_outputs)
         relay_fee = cls.relay_fee()
         return total_amount - relay_fee
+
+    @staticmethod
+    def to_hex(text):
+        data = bytes(text, encoding=encoding)
+        data_hex = hexlify(data)
+        return data_hex.decode(encoding=encoding)
 
     @staticmethod
     def total_amount(outputs):

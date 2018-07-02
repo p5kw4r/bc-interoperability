@@ -36,11 +36,6 @@ class MCAdapter(Adapter):
         data = unhexlify(data_hex)
         return data.decode(encoding=encoding)
 
-    @staticmethod
-    def to_hex(text):
-        data = bytes(text, encoding=encoding)
-        return hexlify(data)
-
     @classmethod
     def create_transaction(cls, text):
         data_hex = cls.to_hex(text)
@@ -49,6 +44,11 @@ class MCAdapter(Adapter):
             {address: amount},
             [data_hex])
         return transaction_hex
+
+    @staticmethod
+    def to_hex(text):
+        data = bytes(text, encoding=encoding)
+        return hexlify(data)
 
     @classmethod
     def sign_transaction(cls, transaction_hex):
