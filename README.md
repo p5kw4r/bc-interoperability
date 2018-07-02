@@ -8,6 +8,7 @@ This project is built with:
 
 - [Web3.py](https://web3py.readthedocs.io/en/stable/) for Ethereum support
 - [mcrpc](https://github.com/coblo/mcrpc) for MultiChain support
+- [python-bitcoinrpc](https://github.com/jgarzik/python-bitcoinrpc) for Bitcoin support
 
 ## Setup
 
@@ -30,7 +31,7 @@ $ source venv/bin/activate
 Install dependencies:
 
 ```
-(venv) $ pip install web3 mcrpc
+(venv) $ pip install web3 mcrpc python-bitcoinrpc
 ```
 
 Deactivate virtual environment:
@@ -44,5 +45,5 @@ Deactivate virtual environment:
 Install dependencies:
 
 ```
-$ pip install --user web3 mcrpc
+$ pip install --user web3 mcrpc python-bitcoinrpc
 ```
