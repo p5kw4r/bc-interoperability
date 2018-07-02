@@ -24,11 +24,16 @@ class BTCAdapter(Adapter):
         transaction_hex = cls.client.getrawtransaction(transaction_hash)
         return cls.client.decoderawtransaction(transaction_hex)
 
-    @staticmethod
-    def extract_data(transaction):
-        output = transaction['vout'][1]
+    @classmethod
+    def extract_data(cls, transaction):
+        output = cls.extract_output(transaction, 1)
         asm = output['scriptPubKey']['asm']
         return asm.split()[1]
+
+    @staticmethod
+    def extract_output(transaction, i):
+        outputs = transaction['vout']
+        return outputs[i]
 
     @staticmethod
     def to_text(data_hex):
@@ -36,29 +41,25 @@ class BTCAdapter(Adapter):
         return data.decode(encoding=encoding)
 
     @classmethod
-    def create_transaction(cls, text):
-        unspent_outputs = cls.list_unspent_outputs()
-        change_amount = cls.change_amount(unspent_outputs)
+    def create_transaction(cls, text, input_transaction_hash=None):
+        unspent_output = cls.unspent_output(input_transaction_hash)
+        change_amount = cls.change_amount(unspent_output)
         data_hex = cls.to_hex(text)
         transaction_hex = cls.client.createrawtransaction(
-            unspent_outputs,
+            [{'txid': input_transaction_hash, 'vout': 0}],
             {address: change_amount, 'data': data_hex})
         return transaction_hex
 
     @classmethod
-    def list_unspent_outputs(cls):
-        return cls.client.listunspent(minconf, maxconf, [address])
+    def unspent_output(cls, transaction_hash):
+        transaction = cls.get_transaction(transaction_hash)
+        return cls.extract_output(transaction, 0)
 
     @classmethod
-    def change_amount(cls, unspent_outputs):
-        total_amount = cls.total_amount(unspent_outputs)
+    def change_amount(cls, unspent_output):
+        amount = unspent_output['value']
         relay_fee = cls.relay_fee()
-        return total_amount - relay_fee
-
-    @staticmethod
-    def total_amount(outputs):
-        amounts = [output['amount'] for output in outputs]
-        return sum(amounts)
+        return amount - relay_fee
 
     @classmethod
     def relay_fee(cls):

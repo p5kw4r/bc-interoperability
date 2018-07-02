@@ -10,9 +10,9 @@ Adapter = {
 }
 
 
-def store(text, blockchain_id):
+def store(text, blockchain_id, input_transaction_hash=None):
     adapter = Adapter[blockchain_id]
-    transaction_hash = adapter.store(text)
+    transaction_hash = adapter.store(text, input_transaction_hash)
     return transaction_hash
 
 

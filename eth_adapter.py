@@ -25,7 +25,7 @@ class EthAdapter(Adapter):
         return Web3.toText(data)
 
     @classmethod
-    def create_transaction(cls, text):
+    def create_transaction(cls, text, input_transaction_hash=None):
         transaction = {
             'from': address,
             'to': address,

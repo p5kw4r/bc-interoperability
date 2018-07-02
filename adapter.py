@@ -29,15 +29,15 @@ class Adapter(ABC):
         raise NotImplementedError
 
     @classmethod
-    def store(cls, text):
-        transaction = cls.create_transaction(text)
+    def store(cls, text, input_transaction_hash=None):
+        transaction = cls.create_transaction(text, input_transaction_hash)
         signed_transaction = cls.sign_transaction(transaction)
         transaction_hash = cls.send_raw_transaction(signed_transaction)
         return transaction_hash
 
     @staticmethod
     @abstractmethod
-    def create_transaction(text):
+    def create_transaction(text, transaction_hash=None):
         raise NotImplementedError
 
     @classmethod

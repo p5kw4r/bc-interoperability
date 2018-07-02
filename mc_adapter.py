@@ -24,12 +24,17 @@ class MCAdapter(Adapter):
     def get_transaction(cls, transaction_hash):
         return cls.client.getrawtransaction(transaction_hash, verbose=1)
 
-    @staticmethod
-    def extract_data(transaction):
+    @classmethod
+    def extract_data(cls, transaction):
         # workaround needed because potentially multiple output addresses in
         # single transaction (and also potentially multiple data items)
-        output = transaction['vout'][1]
+        output = cls.extract_output(transaction, 1)
         return output['data'][0]
+
+    @staticmethod
+    def extract_output(transaction, i):
+        outputs = transaction['vout']
+        return outputs[i]
 
     @staticmethod
     def to_text(data_hex):
@@ -37,7 +42,7 @@ class MCAdapter(Adapter):
         return data.decode(encoding=encoding)
 
     @classmethod
-    def create_transaction(cls, text):
+    def create_transaction(cls, text, input_transaction_hash=None):
         data_hex = cls.to_hex(text)
         transaction_hex = cls.client.createrawsendfrom(
             address,
