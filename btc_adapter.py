@@ -56,12 +56,6 @@ class BTCAdapter(Adapter):
         return total_amount - relay_fee
 
     @staticmethod
-    def to_hex(text):
-        data = bytes(text, encoding=encoding)
-        data_hex = hexlify(data)
-        return data_hex.decode(encoding=encoding)
-
-    @staticmethod
     def total_amount(outputs):
         amounts = [output['amount'] for output in outputs]
         return sum(amounts)
@@ -70,6 +64,12 @@ class BTCAdapter(Adapter):
     def relay_fee(cls):
         network_info = cls.client.getnetworkinfo()
         return network_info['relayfee']
+
+    @staticmethod
+    def to_hex(text):
+        data = bytes(text, encoding=encoding)
+        data_hex = hexlify(data)
+        return data_hex.decode(encoding=encoding)
 
     @classmethod
     def sign_transaction(cls, transaction_hex):
