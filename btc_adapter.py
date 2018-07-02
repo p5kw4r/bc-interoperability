@@ -62,8 +62,8 @@ class BTCAdapter(Adapter):
         return total_amount - relay_fee
 
     @staticmethod
-    def total_amount(unspent_outputs):
-        amounts = [output['amount'] for output in unspent_outputs]
+    def total_amount(outputs):
+        amounts = [output['amount'] for output in outputs]
         return sum(amounts)
 
     @classmethod
