@@ -3,21 +3,18 @@ from mc_adapter import MCAdapter
 from btc_adapter import BTCAdapter
 
 
-def main():
-    original_message = 'Hello, Wörld!'
-
-    transaction_hash = EthAdapter.store(original_message)
-    retrieved_message = EthAdapter.retrieve(transaction_hash)
-    print(retrieved_message)
-
-    transaction_hash = MCAdapter.store(original_message)
-    retrieved_message = MCAdapter.retrieve(transaction_hash)
-    print(retrieved_message)
-
-    transaction_hash = BTCAdapter.store(original_message)
-    retrieved_message = BTCAdapter.retrieve(transaction_hash)
-    print(retrieved_message)
+Adapter = {
+    0: EthAdapter,
+    1: MCAdapter,
+    2: BTCAdapter
+}
 
 
-if __name__ == '__main__':
-    main()
+def store(text, blockchain_id):
+    transaction_hash = Adapter[blockchain_id].store(text)
+    return transaction_hash
+
+
+def retrieve(transaction_hash, blockchain_id):
+    text = Adapter[blockchain_id].retrieve(transaction_hash)
+    return text
