@@ -42,9 +42,9 @@ class BTCAdapter(Adapter):
         unspent_output = cls.unspent_output(input_transaction_hash)
         change_amount = cls.change_amount(unspent_output)
         data_hex = cls.to_hex(text)
-        transaction_hex = cls.client.createrawtransaction(
-            [{'txid': input_transaction_hash, 'vout': 0}],
-            {address: change_amount, 'data': data_hex})
+        inputs = [{'txid': input_transaction_hash, 'vout': 0}]
+        output = {address: change_amount, 'data': data_hex}
+        transaction_hex = cls.client.createrawtransaction(inputs, output)
         return transaction_hex
 
     @classmethod
