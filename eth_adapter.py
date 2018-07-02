@@ -25,10 +25,6 @@ class EthAdapter(Adapter):
         return Web3.toText(data)
 
     @classmethod
-    def get_transaction_count(cls):
-        return cls.client.getTransactionCount(address)
-
-    @classmethod
     def create_transaction(cls, text):
         transaction = {
             'from': address,
@@ -40,6 +36,10 @@ class EthAdapter(Adapter):
         }
         transaction['gas'] = cls.estimate_gas(transaction)
         return transaction
+
+    @classmethod
+    def get_transaction_count(cls):
+        return cls.client.getTransactionCount(address)
 
     @classmethod
     def estimate_gas(cls, transaction):
