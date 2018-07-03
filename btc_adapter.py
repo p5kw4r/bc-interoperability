@@ -28,9 +28,9 @@ class BTCAdapter(Adapter):
         return asm.split()[1]
 
     @staticmethod
-    def extract_output(transaction, i):
+    def extract_output(transaction, output_index):
         outputs = transaction['vout']
-        return outputs[i]
+        return outputs[output_index]
 
     @staticmethod
     def to_text(data_hex):
