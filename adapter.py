@@ -13,9 +13,9 @@ class Adapter(ABC):
         data = cls.extract_data(transaction)
         return cls.to_text(data)
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def get_transaction(cls, transaction_hash):
+    def get_transaction(transaction_hash):
         raise NotImplementedError
 
     @staticmethod
@@ -40,12 +40,12 @@ class Adapter(ABC):
     def create_transaction(text, transaction_hash=None):
         raise NotImplementedError
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def sign_transaction(cls, transaction):
+    def sign_transaction(transaction):
         raise NotImplementedError
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def send_raw_transaction(cls, transaction):
+    def send_raw_transaction(transaction):
         raise NotImplementedError
