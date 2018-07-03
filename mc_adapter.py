@@ -44,9 +44,10 @@ class MCAdapter(Adapter):
     @classmethod
     def create_transaction(cls, text, input_transaction_hash=None):
         data_hex = cls.to_hex(text)
+        inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         output = {address: amount}
-        transaction_hex = cls.client.createrawsendfrom(
-            address,
+        transaction_hex = cls.client.createrawtransaction(
+            inputs,
             output,
             [data_hex])
         return transaction_hex
