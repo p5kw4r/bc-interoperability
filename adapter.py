@@ -37,7 +37,7 @@ class Adapter(ABC):
 
     @staticmethod
     @abstractmethod
-    def create_transaction(text, transaction_hash=None):
+    def create_transaction(text, input_transaction_hash=None):
         raise NotImplementedError
 
     @staticmethod
