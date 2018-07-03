@@ -39,8 +39,7 @@ class BTCAdapter(Adapter):
 
     @classmethod
     def create_transaction(cls, text, input_transaction_hash=None):
-        unspent_output = cls.unspent_output(input_transaction_hash)
-        change_amount = cls.change_amount(unspent_output)
+        change_amount = cls.change_amount(input_transaction_hash)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         output = {address: change_amount, 'data': data_hex}
@@ -48,15 +47,16 @@ class BTCAdapter(Adapter):
         return transaction_hex
 
     @classmethod
-    def unspent_output(cls, transaction_hash):
-        transaction = cls.get_transaction(transaction_hash)
-        return cls.extract_output(transaction, 0)
-
-    @classmethod
-    def change_amount(cls, unspent_output):
-        amount = unspent_output['value']
+    def change_amount(cls, transaction_hash):
+        amount = cls.extract_value(transaction_hash)
         relay_fee = cls.relay_fee()
         return amount - relay_fee
+
+    @classmethod
+    def extract_value(cls, transaction_hash):
+        transaction = cls.get_transaction(transaction_hash)
+        output = cls.extract_output(transaction, 0)
+        return output['value']
 
     @classmethod
     def relay_fee(cls):
