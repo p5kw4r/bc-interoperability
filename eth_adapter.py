@@ -1,14 +1,14 @@
 from web3 import Web3, HTTPProvider
 from adapter import Adapter
 from config import AMOUNT, ENCODING
-import database
+from database import get_credentials, add_transaction
 
 BLOCKCHAIN_ID = 1
 ENDPOINT_URI = 'http://localhost:8545'
 
 
 class EthAdapter(Adapter):
-    credentials = database.get_credentials(BLOCKCHAIN_ID)
+    credentials = get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']
     web3 = Web3(HTTPProvider(ENDPOINT_URI))
@@ -59,4 +59,4 @@ class EthAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        database.add_transaction(transaction_hash, BLOCKCHAIN_ID)
+        add_transaction(transaction_hash, BLOCKCHAIN_ID)

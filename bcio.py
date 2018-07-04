@@ -1,7 +1,7 @@
 from eth_adapter import EthAdapter
 from mc_adapter import MCAdapter
 from btc_adapter import BTCAdapter
-import database
+from database import get_blockchain_id
 
 
 Adapter = {
@@ -18,7 +18,7 @@ def store(text, blockchain_id):
 
 
 def retrieve(transaction_hash):
-    blockchain_id = database.get_blockchain_id(transaction_hash)
+    blockchain_id = get_blockchain_id(transaction_hash)
     adapter = Adapter[blockchain_id]
     text = adapter.retrieve(transaction_hash)
     return text

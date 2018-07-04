@@ -2,7 +2,10 @@ from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
 from adapter import Adapter
 from config import AMOUNT, ENCODING
-import database
+from database import \
+    get_credentials, \
+    add_transaction, \
+    get_latest_transaction_hash
 
 BLOCKCHAIN_ID = 2
 HOST = 'localhost'
@@ -10,7 +13,7 @@ PORT = '7324'
 
 
 class MCAdapter(Adapter):
-    credentials = database.get_credentials(BLOCKCHAIN_ID)
+    credentials = get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -40,9 +43,7 @@ class MCAdapter(Adapter):
 
     @classmethod
     def create_transaction(cls, text):
-        input_transaction_hash = database.get_latest_transaction_hash(
-            BLOCKCHAIN_ID
-        )
+        input_transaction_hash = get_latest_transaction_hash(BLOCKCHAIN_ID)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         output = {cls.address: AMOUNT}
@@ -76,4 +77,4 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        database.add_transaction(transaction_hash, BLOCKCHAIN_ID)
+        add_transaction(transaction_hash, BLOCKCHAIN_ID)
