@@ -111,7 +111,8 @@ def update_credentials(blockchain_id, address, key, user='', password=''):
     with connection:
         connection.execute(
             '''
-            UPDATE credentials SET 
+            UPDATE credentials 
+            SET 
             address=?, 
             key=?, 
             user=?, 
