@@ -20,7 +20,7 @@ def create_tables():
         connection.execute(
             '''
             CREATE TABLE credentials 
-            (id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            (id INTEGER PRIMARY KEY, 
             address TEXT, 
             key TEXT, 
             user TEXT, 
@@ -31,16 +31,19 @@ def create_tables():
 
 def seed_credentials():
     add_credentials(
+        1,
         '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe',
         'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
     )
     add_credentials(
+        2,
         '18DcW1noCMnpmFwo9qe7aSCe6L7hMjhmhyWjBf',
         'VEuzxDqs2KpvWhYB8uRvW3dNzEng16P496V66Zb7tnnY46LKAoqxNAv8',
         'multichainrpc',
         'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
     )
     add_credentials(
+        3,
         '2NGMq7iBuJTeDMQPxSaEQVqMtdt3VQxuN7B',
         'cS6kdk7zxTCij8HpXHE8Kdnh1uAM46PU5LNtQxpBZ6YjP3t3zgWL',
         'bitcoinrpc',
@@ -92,18 +95,14 @@ def get_blockchain_id(transaction_hash):
     return row['blockchain_id']
 
 
-def add_credentials(address, key, user='', password=''):
+def add_credentials(blockchain_id, address, key, user='', password=''):
     with connection:
         connection.execute(
             '''
             INSERT INTO credentials 
-            (address, 
-            key, 
-            user, 
-            password) 
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
             ''',
-            (address, key, user, password)
+            (blockchain_id, address, key, user, password)
         )
 
 
