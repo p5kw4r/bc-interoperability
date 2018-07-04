@@ -39,7 +39,7 @@ class BTCAdapter(Adapter):
     @staticmethod
     def to_text(data_hex):
         data = unhexlify(data_hex)
-        return data.decode(encoding=ENCODING)
+        return data.decode(ENCODING)
 
     @classmethod
     def create_transaction(cls, text):
@@ -70,9 +70,9 @@ class BTCAdapter(Adapter):
 
     @staticmethod
     def to_hex(text):
-        data = bytes(text, encoding=ENCODING)
+        data = bytes(text, ENCODING)
         data_hex = hexlify(data)
-        return data_hex.decode(encoding=ENCODING)
+        return data_hex.decode(ENCODING)
 
     @classmethod
     def sign_transaction(cls, transaction_hex):

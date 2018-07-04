@@ -33,7 +33,7 @@ class EthAdapter(Adapter):
             'to': cls.address,
             'gasPrice': cls.client.gasPrice,
             'value': AMOUNT,
-            'data': bytes(text, encoding=ENCODING),
+            'data': bytes(text, ENCODING),
             'nonce': cls.get_transaction_count()
         }
         transaction['gas'] = cls.estimate_gas(transaction)
