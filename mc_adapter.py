@@ -1,21 +1,21 @@
 from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
 from adapter import Adapter
-from config import amount, encoding
+from config import AMOUNT, ENCODING
 import database
 
-blockchain_id = 2
-host = 'localhost'
-port = '7324'
+BLOCKCHAIN_ID = 2
+HOST = 'localhost'
+PORT = '7324'
 
 
 class MCAdapter(Adapter):
-    credentials = database.get_credentials(blockchain_id)
+    credentials = database.get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
     rpcpassword = credentials['password']
-    client = RpcClient(host, port, rpcuser, rpcpassword)
+    client = RpcClient(HOST, PORT, rpcuser, rpcpassword)
 
     @classmethod
     def get_transaction(cls, transaction_hash):
@@ -36,16 +36,16 @@ class MCAdapter(Adapter):
     @staticmethod
     def to_text(data_hex):
         data = unhexlify(data_hex)
-        return data.decode(encoding=encoding)
+        return data.decode(encoding=ENCODING)
 
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction_hash(
-            blockchain_id
+            BLOCKCHAIN_ID
         )
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
-        output = {cls.address: amount}
+        output = {cls.address: AMOUNT}
         transaction_hex = cls.client.createrawtransaction(
             inputs,
             output,
@@ -55,7 +55,7 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def to_hex(text):
-        data = bytes(text, encoding=encoding)
+        data = bytes(text, encoding=ENCODING)
         return hexlify(data)
 
     @classmethod
@@ -76,4 +76,4 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        database.add_transaction(transaction_hash, blockchain_id)
+        database.add_transaction(transaction_hash, BLOCKCHAIN_ID)

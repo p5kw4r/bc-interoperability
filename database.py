@@ -1,9 +1,9 @@
 from sqlite3 import connect, Row
 from datetime import datetime
 
-database = 'bcio.db'
+DATABASE = 'bcio.db'
 
-connection = connect(database)
+connection = connect(DATABASE)
 connection.row_factory = Row
 
 

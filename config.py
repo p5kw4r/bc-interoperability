@@ -1,2 +1,2 @@
-amount = 0
-encoding = 'utf-8'
+AMOUNT = 0
+ENCODING = 'utf-8'

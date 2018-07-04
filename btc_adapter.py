@@ -1,14 +1,14 @@
 from binascii import hexlify, unhexlify
 from bitcoinrpc.authproxy import AuthServiceProxy
 from adapter import Adapter
-from config import encoding
+from config import ENCODING
 import database
 
-blockchain_id = 3
+BLOCKCHAIN_ID = 3
 
 
 class BTCAdapter(Adapter):
-    credentials = database.get_credentials(blockchain_id)
+    credentials = database.get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -36,12 +36,12 @@ class BTCAdapter(Adapter):
     @staticmethod
     def to_text(data_hex):
         data = unhexlify(data_hex)
-        return data.decode(encoding=encoding)
+        return data.decode(encoding=ENCODING)
 
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction_hash(
-            blockchain_id
+            BLOCKCHAIN_ID
         )
         change = cls.get_change(input_transaction_hash)
         data_hex = cls.to_hex(text)
@@ -69,9 +69,9 @@ class BTCAdapter(Adapter):
 
     @staticmethod
     def to_hex(text):
-        data = bytes(text, encoding=encoding)
+        data = bytes(text, encoding=ENCODING)
         data_hex = hexlify(data)
-        return data_hex.decode(encoding=encoding)
+        return data_hex.decode(encoding=ENCODING)
 
     @classmethod
     def sign_transaction(cls, transaction_hex):
@@ -91,4 +91,4 @@ class BTCAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        database.add_transaction(transaction_hash, blockchain_id)
+        database.add_transaction(transaction_hash, BLOCKCHAIN_ID)
