@@ -9,9 +9,9 @@ This project is built with:
 - [Python](https://www.python.org/)
 - [PyPA](https://pip.pypa.io/en/stable/) tool for installing Python packages
 - [Sqlite3](https://www.sqlite.org/index.html) as dbms
-- [Web3.py](https://web3py.readthedocs.io/en/stable/) for Ethereum support
-- [mcrpc](https://github.com/coblo/mcrpc) for MultiChain support
-- [python-bitcoinrpc](https://github.com/jgarzik/python-bitcoinrpc) for Bitcoin support
+- [Web3.py](https://web3py.readthedocs.io/en/stable/) for Ethereum integration
+- [mcrpc](https://github.com/coblo/mcrpc) for MultiChain integration
+- [python-bitcoinrpc](https://github.com/jgarzik/python-bitcoinrpc) for Bitcoin integration
 
 ## Setup
 
