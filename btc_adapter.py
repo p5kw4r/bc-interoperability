@@ -25,7 +25,8 @@ class BTCAdapter(Adapter):
     def extract_data(cls, transaction):
         output = cls.extract_output(transaction, 1)
         asm = output['scriptPubKey']['asm']
-        return asm.split()[1]
+        _, data = asm.split()
+        return data
 
     @staticmethod
     def extract_output(transaction, output_index):
