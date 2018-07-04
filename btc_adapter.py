@@ -41,27 +41,27 @@ class BTCAdapter(Adapter):
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction_hash(
             blockchain_id)
-        change_amount = cls.change_amount(input_transaction_hash)
+        change = cls.get_change(input_transaction_hash)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
-        output = {cls.address: change_amount, 'data': data_hex}
+        output = {cls.address: change, 'data': data_hex}
         transaction_hex = cls.client.createrawtransaction(inputs, output)
         return transaction_hex
 
     @classmethod
-    def change_amount(cls, transaction_hash):
-        amount = cls.extract_value(transaction_hash)
-        relay_fee = cls.relay_fee()
+    def get_change(cls, transaction_hash):
+        amount = cls.extract_amount(transaction_hash)
+        relay_fee = cls.get_relay_fee()
         return amount - relay_fee
 
     @classmethod
-    def extract_value(cls, transaction_hash):
+    def extract_amount(cls, transaction_hash):
         transaction = cls.get_transaction(transaction_hash)
         output = cls.extract_output(transaction, 0)
         return output['value']
 
     @classmethod
-    def relay_fee(cls):
+    def get_relay_fee(cls):
         network_info = cls.client.getnetworkinfo()
         return network_info['relayfee']
 
