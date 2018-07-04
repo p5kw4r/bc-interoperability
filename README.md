@@ -6,13 +6,25 @@ A project towards blockchain interoperability.
 
 This project is built with:
 
+- [`python`](https://www.python.org/)
+- [`sqlite`](https://www.sqlite.org/index.html)
 - [Web3.py](https://web3py.readthedocs.io/en/stable/) for Ethereum support
 - [mcrpc](https://github.com/coblo/mcrpc) for MultiChain support
 - [python-bitcoinrpc](https://github.com/jgarzik/python-bitcoinrpc) for Bitcoin support
 
 ## Setup
 
-### Installation of dependencies
+### General dependencies
+
+Install dependencies using your favourite package manager:
+
+```
+# pacman -S python sqlite
+```
+
+> Note: The project is built with `python` version `3.6.5` and `sqlite` version `3.24.0`.
+
+### Python dependencies
 
 #### With virtual environment
 
