@@ -13,6 +13,7 @@ PORT = '7324'
 
 
 class MCAdapter(Adapter):
+
     credentials = get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']

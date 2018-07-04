@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Adapter(ABC):
+
     @property
     @abstractmethod
     def credentials(self):

@@ -11,6 +11,7 @@ BLOCKCHAIN_ID = 3
 
 
 class BTCAdapter(Adapter):
+
     credentials = get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']

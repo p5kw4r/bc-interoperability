@@ -8,6 +8,7 @@ ENDPOINT_URI = 'http://localhost:8545'
 
 
 class EthAdapter(Adapter):
+
     credentials = get_credentials(BLOCKCHAIN_ID)
     address = credentials['address']
     key = credentials['key']
