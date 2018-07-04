@@ -1,14 +1,16 @@
 from web3 import Web3, HTTPProvider
 from adapter import Adapter
 from config import amount, encoding
+import database
 
+blockchain_id = 1
 endpoint_uri = 'http://localhost:8545'
-
-address = '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe'
-key = 'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
 
 
 class EthAdapter(Adapter):
+    credentials = database.get_credentials(blockchain_id)
+    address = credentials['address']
+    key = credentials['key']
     web3 = Web3(HTTPProvider(endpoint_uri))
     client = web3.eth
 
@@ -25,10 +27,10 @@ class EthAdapter(Adapter):
         return Web3.toText(data)
 
     @classmethod
-    def create_transaction(cls, text, input_transaction_hash=None):
+    def create_transaction(cls, text):
         transaction = {
-            'from': address,
-            'to': address,
+            'from': cls.address,
+            'to': cls.address,
             'gasPrice': cls.client.gasPrice,
             'value': amount,
             'data': bytes(text, encoding=encoding),
@@ -39,7 +41,7 @@ class EthAdapter(Adapter):
 
     @classmethod
     def get_transaction_count(cls):
-        return cls.client.getTransactionCount(address)
+        return cls.client.getTransactionCount(cls.address)
 
     @classmethod
     def estimate_gas(cls, transaction):
@@ -47,10 +49,14 @@ class EthAdapter(Adapter):
 
     @classmethod
     def sign_transaction(cls, transaction):
-        result = cls.client.account.signTransaction(transaction, key)
+        result = cls.client.account.signTransaction(transaction, cls.key)
         return result.rawTransaction
 
     @classmethod
     def send_raw_transaction(cls, transaction):
         transaction_hash = cls.client.sendRawTransaction(transaction)
         return transaction_hash
+
+    @staticmethod
+    def add_transaction_to_database(transaction_hash):
+        database.add_transaction(transaction_hash, blockchain_id)

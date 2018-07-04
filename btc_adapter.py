@@ -2,18 +2,18 @@ from binascii import hexlify, unhexlify
 from bitcoinrpc.authproxy import AuthServiceProxy
 from adapter import Adapter
 from config import encoding
+import database
 
-# The API credentials are stored in `~/.bitcoin/bitcoin.conf`
-rpcuser = 'bitcoinrpc'
-rpcpassword = 'f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae'
-
-endpoint_uri = 'http://%s:%s@127.0.0.1:18332' % (rpcuser, rpcpassword)
-
-address = '2NGMq7iBuJTeDMQPxSaEQVqMtdt3VQxuN7B'
-key = 'cS6kdk7zxTCij8HpXHE8Kdnh1uAM46PU5LNtQxpBZ6YjP3t3zgWL'
+blockchain_id = 3
 
 
 class BTCAdapter(Adapter):
+    credentials = database.get_credentials(blockchain_id)
+    address = credentials['address']
+    key = credentials['key']
+    rpcuser = credentials['user']
+    rpcpassword = credentials['password']
+    endpoint_uri = 'http://%s:%s@127.0.0.1:18332' % (rpcuser, rpcpassword)
     client = AuthServiceProxy(endpoint_uri)
 
     @classmethod
@@ -38,11 +38,13 @@ class BTCAdapter(Adapter):
         return data.decode(encoding=encoding)
 
     @classmethod
-    def create_transaction(cls, text, input_transaction_hash=None):
+    def create_transaction(cls, text):
+        input_transaction_hash = database.get_latest_transaction_hash(
+            blockchain_id)
         change_amount = cls.change_amount(input_transaction_hash)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
-        output = {address: change_amount, 'data': data_hex}
+        output = {cls.address: change_amount, 'data': data_hex}
         transaction_hex = cls.client.createrawtransaction(inputs, output)
         return transaction_hex
 
@@ -75,7 +77,7 @@ class BTCAdapter(Adapter):
         signed_transaction = cls.client.signrawtransaction(
             transaction_hex,
             parent_outputs,
-            [key])
+            [cls.key])
         assert signed_transaction['complete']
         return signed_transaction['hex']
 
@@ -83,3 +85,7 @@ class BTCAdapter(Adapter):
     def send_raw_transaction(cls, transaction_hex):
         transaction_hash = cls.client.sendrawtransaction(transaction_hex)
         return transaction_hash
+
+    @staticmethod
+    def add_transaction_to_database(transaction_hash):
+        database.add_transaction(transaction_hash, blockchain_id)

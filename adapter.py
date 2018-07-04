@@ -4,6 +4,21 @@ from abc import ABC, abstractmethod
 class Adapter(ABC):
     @property
     @abstractmethod
+    def credentials(self):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def address(self):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def key(self):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
     def client(self):
         raise NotImplementedError
 
@@ -29,15 +44,16 @@ class Adapter(ABC):
         raise NotImplementedError
 
     @classmethod
-    def store(cls, text, input_transaction_hash=None):
-        transaction = cls.create_transaction(text, input_transaction_hash)
+    def store(cls, text):
+        transaction = cls.create_transaction(text)
         signed_transaction = cls.sign_transaction(transaction)
         transaction_hash = cls.send_raw_transaction(signed_transaction)
+        cls.add_transaction_to_database(transaction_hash)
         return transaction_hash
 
     @staticmethod
     @abstractmethod
-    def create_transaction(text, input_transaction_hash=None):
+    def create_transaction(text):
         raise NotImplementedError
 
     @staticmethod
@@ -48,4 +64,9 @@ class Adapter(ABC):
     @staticmethod
     @abstractmethod
     def send_raw_transaction(transaction):
+        raise NotImplementedError
+
+    @staticmethod
+    @abstractmethod
+    def add_transaction_to_database(transaction_hash):
         raise NotImplementedError

@@ -2,22 +2,19 @@ from binascii import hexlify, unhexlify
 from mcrpc import RpcClient
 from adapter import Adapter
 from config import amount, encoding
+import database
 
+blockchain_id = 2
 host = 'localhost'
 port = '7324'
 
-# The API credentials for each blockchain are stored in the
-# ~/.multichain/[chain-name]/multichain.conf
-rpcuser = 'multichainrpc'
-rpcpassword = 'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
-
-# The private key can be found by running `dumpprivkey [address]` command in
-# interactive mode, i.e. `$ multichain-cli [chain-name]`
-address = '1RuG62c89Vk1V6psGhtAwywan9mWsvFvBv2cLM'
-key = 'VAUWVB6KStqzemdzXqak77cbkaz6tyYyRbcG3pqBcpP2xNFzAvT8bt2E'
-
 
 class MCAdapter(Adapter):
+    credentials = database.get_credentials(blockchain_id)
+    address = credentials['address']
+    key = credentials['key']
+    rpcuser = credentials['user']
+    rpcpassword = credentials['password']
     client = RpcClient(host, port, rpcuser, rpcpassword)
 
     @classmethod
@@ -42,10 +39,12 @@ class MCAdapter(Adapter):
         return data.decode(encoding=encoding)
 
     @classmethod
-    def create_transaction(cls, text, input_transaction_hash=None):
+    def create_transaction(cls, text):
+        input_transaction_hash = database.get_latest_transaction_hash(
+            blockchain_id)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
-        output = {address: amount}
+        output = {cls.address: amount}
         transaction_hex = cls.client.createrawtransaction(
             inputs,
             output,
@@ -63,7 +62,7 @@ class MCAdapter(Adapter):
         signed_transaction = cls.client.signrawtransaction(
             transaction_hex,
             parent_outputs,
-            [key])
+            [cls.key])
         assert signed_transaction['complete']
         return signed_transaction['hex']
 
@@ -71,3 +70,7 @@ class MCAdapter(Adapter):
     def send_raw_transaction(cls, transaction_hex):
         transaction_hash = cls.client.sendrawtransaction(transaction_hex)
         return transaction_hash
+
+    @staticmethod
+    def add_transaction_to_database(transaction_hash):
+        database.add_transaction(transaction_hash, blockchain_id)
