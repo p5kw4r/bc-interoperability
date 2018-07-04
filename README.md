@@ -23,7 +23,7 @@ Install dependencies using your favourite package manager:
 # pacman -S python python-pip sqlite
 ```
 
-> This project is built with `python` version `3.6.5` and `sqlite` version `3.24.0`.
+> This project uses `python` version `3.6.5` and `sqlite` version `3.24.0`.
 
 ### Python dependencies
 
