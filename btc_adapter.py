@@ -40,7 +40,8 @@ class BTCAdapter(Adapter):
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction_hash(
-            blockchain_id)
+            blockchain_id
+        )
         change = cls.get_change(input_transaction_hash)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
@@ -77,7 +78,8 @@ class BTCAdapter(Adapter):
         signed_transaction = cls.client.signrawtransaction(
             transaction_hex,
             parent_outputs,
-            [cls.key])
+            [cls.key]
+        )
         assert signed_transaction['complete']
         return signed_transaction['hex']
 

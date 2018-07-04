@@ -41,14 +41,16 @@ class MCAdapter(Adapter):
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction_hash(
-            blockchain_id)
+            blockchain_id
+        )
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         output = {cls.address: amount}
         transaction_hex = cls.client.createrawtransaction(
             inputs,
             output,
-            [data_hex])
+            [data_hex]
+        )
         return transaction_hex
 
     @staticmethod
@@ -62,7 +64,8 @@ class MCAdapter(Adapter):
         signed_transaction = cls.client.signrawtransaction(
             transaction_hex,
             parent_outputs,
-            [cls.key])
+            [cls.key]
+        )
         assert signed_transaction['complete']
         return signed_transaction['hex']
 
