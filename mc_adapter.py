@@ -1,6 +1,6 @@
-from binascii import hexlify, unhexlify
+from binascii import hexlify
 from mcrpc import RpcClient
-from adapter import Adapter
+from mc_btc_adapter import MCBTCAdapter
 from config import AMOUNT, ENCODING
 from blockchain import Blockchain
 import database
@@ -9,7 +9,7 @@ HOST = 'localhost'
 PORT = '7324'
 
 
-class MCAdapter(Adapter):
+class MCAdapter(MCBTCAdapter):
 
     credentials = database.get_credentials(Blockchain.MULTICHAIN)
     address = credentials['address']
@@ -30,29 +30,8 @@ class MCAdapter(Adapter):
         return output['data'][0]
 
     @staticmethod
-    def extract_output(transaction, output_index):
-        outputs = transaction['vout']
-        return outputs[output_index]
-
-    @staticmethod
-    def to_text(data_hex):
-        data = unhexlify(data_hex)
-        return data.decode(ENCODING)
-
-    @classmethod
-    def create_transaction(cls, text):
-        input_transaction_hash = database.get_latest_transaction(
-            Blockchain.MULTICHAIN
-        )
-        data_hex = cls.to_hex(text)
-        inputs = [{'txid': input_transaction_hash, 'vout': 0}]
-        output = {cls.address: AMOUNT}
-        transaction_hex = cls.client.createrawtransaction(
-            inputs,
-            output,
-            [data_hex]
-        )
-        return transaction_hex
+    def get_latest_transaction_from_database():
+        return database.get_latest_transaction(Blockchain.MULTICHAIN)
 
     @staticmethod
     def to_hex(text):
@@ -60,20 +39,17 @@ class MCAdapter(Adapter):
         return hexlify(data)
 
     @classmethod
-    def sign_transaction(cls, transaction_hex):
-        parent_outputs = []
-        signed = cls.client.signrawtransaction(
-            transaction_hex,
-            parent_outputs,
-            [cls.key]
-        )
-        assert signed['complete']
-        return signed['hex']
+    def create_transaction_output(cls, data_hex, input_transaction_hash):
+        return {cls.address: AMOUNT}
 
     @classmethod
-    def send_raw_transaction(cls, transaction_hex):
-        transaction_hash = cls.client.sendrawtransaction(transaction_hex)
-        return transaction_hash
+    def create_raw_transaction(cls, inputs, output, data_hex):
+        transaction_hex = cls.client.createrawtransaction(
+            inputs,
+            output,
+            [data_hex]
+        )
+        return transaction_hex
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
