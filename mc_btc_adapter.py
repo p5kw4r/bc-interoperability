@@ -22,11 +22,7 @@ class MCBTCAdapter(Adapter):
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         data_hex = cls.to_hex(text)
         output = cls.create_transaction_output(data_hex, input_transaction_hash)
-        transaction_hex = cls.create_raw_transaction(
-            inputs,
-            output,
-            data_hex
-        )
+        transaction_hex = cls.create_raw_transaction(inputs, output, data_hex)
         return transaction_hex
 
     @staticmethod
