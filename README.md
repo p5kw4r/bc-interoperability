@@ -100,4 +100,4 @@ In interactive mode, run:
 >>> text_retrieved = retrieve(tx_hash)
 ```
 
-Alternatively, the module comes with integration for MultiChain and Bitcoin. Use `Blockchain.MULTICHAIN`, resp. `Blockchain.BITCOIN`.
+The module comes with integration for MultiChain and Bitcoin. Use `Blockchain.MULTICHAIN`, resp. `Blockchain.BITCOIN`.
