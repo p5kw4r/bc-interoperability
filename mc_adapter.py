@@ -5,7 +5,7 @@ from config import AMOUNT, ENCODING
 from database import \
     get_credentials, \
     add_transaction, \
-    get_latest_transaction_hash
+    get_latest_transaction
 
 BLOCKCHAIN_ID = 2
 HOST = 'localhost'
@@ -44,7 +44,7 @@ class MCAdapter(Adapter):
 
     @classmethod
     def create_transaction(cls, text):
-        input_transaction_hash = get_latest_transaction_hash(BLOCKCHAIN_ID)
+        input_transaction_hash = get_latest_transaction(BLOCKCHAIN_ID)
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         output = {cls.address: AMOUNT}

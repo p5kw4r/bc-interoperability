@@ -74,7 +74,7 @@ def add_transaction(transaction_hash, blockchain_id):
         )
 
 
-def get_latest_transaction_hash(blockchain_id):
+def get_latest_transaction(blockchain_id):
     cursor = connection.execute(
         '''
         SELECT hash 
