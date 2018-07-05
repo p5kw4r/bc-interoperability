@@ -21,6 +21,9 @@ class EthAdapter(Adapter):
 
     @staticmethod
     def extract_data(transaction):
+        # Note that 'input' might be replaced with 'data' in a future release,
+        # see here for more detailed information:
+        # https://github.com/ethereum/web3.py/issues/901
         return transaction.input
 
     @staticmethod
