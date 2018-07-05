@@ -71,7 +71,7 @@ $ python
 
 In interactive mode, run the database setup:
 
-```
+```python
 >>> import database
 >>> database.setup()
 ```
