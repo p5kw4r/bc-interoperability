@@ -11,6 +11,12 @@ connection = connect(DATABASE)
 connection.row_factory = Row
 
 
+def setup():
+    create_tables()
+    seed_credentials()
+    seed_transactions()
+
+
 def create_tables():
     with connection:
         connection.execute(
