@@ -19,7 +19,7 @@ class MCBTCAdapter(Adapter):
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = cls.get_latest_transaction_from_database()
-        inputs = cls.create_transaction_inputs(input_transaction_hash)
+        inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         data_hex = cls.to_hex(text)
         output = cls.create_transaction_output(data_hex, input_transaction_hash)
         transaction_hex = cls.create_raw_transaction(
@@ -33,10 +33,6 @@ class MCBTCAdapter(Adapter):
     @abstractmethod
     def get_latest_transaction_from_database():
         raise NotImplementedError
-
-    @staticmethod
-    def create_transaction_inputs(input_transaction_hash):
-        return [{'txid': input_transaction_hash, 'vout': 0}]
 
     @staticmethod
     @abstractmethod
