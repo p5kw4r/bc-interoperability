@@ -10,7 +10,7 @@ ENDPOINT_URI = 'http://localhost:8545'
 class EthAdapter(Adapter):
 
     credentials = get_credentials(Blockchain.ETHEREUM.value)
-    address = credentials['address']
+    address = Web3.toChecksumAddress(credentials['address'])
     key = credentials['key']
     web3 = Web3(HTTPProvider(ENDPOINT_URI))
     client = web3.eth
