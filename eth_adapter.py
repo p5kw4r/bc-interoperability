@@ -1,5 +1,4 @@
 from web3 import Web3, HTTPProvider
-from hexbytes import HexBytes
 from adapter import Adapter
 from config import AMOUNT, ENCODING
 from database import get_credentials, add_transaction
