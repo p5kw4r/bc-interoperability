@@ -63,12 +63,6 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 ### Database
 
-Launch the python interpreter:
-
-```
-$ python
-```
-
 In interactive mode, run the database setup:
 
 ```python
@@ -83,12 +77,6 @@ Calling the `setup` function of the `database` module will:
 3. seed the `transactions` table with input transactions for MultiChain and Bitcoin
 
 ## Usage
-
-Launch the python interpreter:
-
-```
-$ python
-```
 
 In interactive mode, run:
 
