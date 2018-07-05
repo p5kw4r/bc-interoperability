@@ -63,7 +63,7 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 ### Database
 
-In interactive mode, run the database setup:
+Run the database setup:
 
 ```python
 >>> from bcio import database
@@ -78,7 +78,7 @@ Calling the `setup` function of the `database` module will:
 
 ## Usage
 
-In interactive mode, run:
+Store a string message on the Ethereum blockchain and retrieve it afterwards:
 
 ```python
 >>> from bcio import store, retrieve, Blockchain
