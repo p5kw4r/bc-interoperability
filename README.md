@@ -78,13 +78,12 @@ Calling the `setup` function of the `database` module will:
 
 ## Usage
 
-Store a string message on the Ethereum blockchain and retrieve it afterwards:
+Store a text message on the Ethereum blockchain and retrieve it afterwards:
 
 ```python
 >>> from bcio import store, retrieve, Blockchain
->>> text = 'Hello World!'
->>> tx_hash = store(text, Blockchain.ETHEREUM)
->>> retrieved_text = retrieve(tx_hash)
+>>> tx_hash = store('Hello World!', Blockchain.ETHEREUM)
+>>> text = retrieve(tx_hash)
 ```
 
 Alternatively, the module comes with integration for MultiChain (`Blockchain.MULTICHAIN`) and Bitcoin (`Blockchain.BITCOIN`).
