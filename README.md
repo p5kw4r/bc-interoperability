@@ -87,4 +87,4 @@ Store a string message on the Ethereum blockchain and retrieve it afterwards:
 >>> retrieved_text = retrieve(tx_hash)
 ```
 
-The module comes with integration for MultiChain and Bitcoin. Use `Blockchain.MULTICHAIN`, resp. `Blockchain.BITCOIN`.
+Besides Ethereum, the module comes with integration for MultiChain (`Blockchain.MULTICHAIN`) and Bitcoin (`Blockchain.BITCOIN`).
