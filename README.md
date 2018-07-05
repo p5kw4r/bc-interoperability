@@ -63,13 +63,13 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 ### Database
 
-Launch a python interpreter:
+Launch the python interpreter:
 
 ```
 $ python
 ```
 
-Run the database setup:
+In interactive mode run the database setup:
 
 ```
 >>> import database
