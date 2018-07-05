@@ -6,15 +6,15 @@ from database import \
     get_credentials, \
     add_transaction, \
     get_latest_transaction
+from blockchain import Blockchain
 
-BLOCKCHAIN_ID = 2
 HOST = 'localhost'
 PORT = '7324'
 
 
 class MCAdapter(Adapter):
 
-    credentials = get_credentials(BLOCKCHAIN_ID)
+    credentials = get_credentials(Blockchain.MULTICHAIN.value)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -44,7 +44,9 @@ class MCAdapter(Adapter):
 
     @classmethod
     def create_transaction(cls, text):
-        input_transaction_hash = get_latest_transaction(BLOCKCHAIN_ID)
+        input_transaction_hash = get_latest_transaction(
+            Blockchain.MULTICHAIN.value
+        )
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
         output = {cls.address: AMOUNT}
@@ -78,4 +80,4 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        add_transaction(transaction_hash, BLOCKCHAIN_ID)
+        add_transaction(transaction_hash, Blockchain.MULTICHAIN.value)

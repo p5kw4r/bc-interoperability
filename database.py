@@ -1,5 +1,6 @@
 from sqlite3 import connect, Row
 from datetime import datetime
+from blockchain import Blockchain
 
 DATABASE = 'bcio.db'
 
@@ -34,19 +35,19 @@ def create_tables():
 
 def seed_credentials():
     add_credentials(
-        1,
+        Blockchain.ETHEREUM.value,
         '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe',
         'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
     )
     add_credentials(
-        2,
-        '18DcW1noCMnpmFwo9qe7aSCe6L7hMjhmhyWjBf',
-        'VEuzxDqs2KpvWhYB8uRvW3dNzEng16P496V66Zb7tnnY46LKAoqxNAv8',
+        Blockchain.MULTICHAIN.value,
+        '1MRQf6mYRDoXjtoKVBi8huxBC69zmSzheYN4yM',
+        'V7BFGjp4wrowNSJDSouXVFJQkwZxMFDScba4SkHYA9aYjEDhLrFBV2Nd',
         'multichainrpc',
         'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
     )
     add_credentials(
-        3,
+        Blockchain.BITCOIN.value,
         '2NGMq7iBuJTeDMQPxSaEQVqMtdt3VQxuN7B',
         'cS6kdk7zxTCij8HpXHE8Kdnh1uAM46PU5LNtQxpBZ6YjP3t3zgWL',
         'bitcoinrpc',
@@ -56,12 +57,12 @@ def seed_credentials():
 
 def seed_transactions():
     add_transaction(
-        '4bcc37b5750a5b23e495259d47971176fcee0022d5e9769d2d90d4af7eec9f86',
-        2
+        '826e7100deeef7def0bfed7f5160ae6ac55a3a0cc8fca660a30488c1755e370d',
+        Blockchain.MULTICHAIN.value
     )
     add_transaction(
-        '1f952dadf43a25fde46a9799181d0cdde18920dad227d75f340cb90d0a1ecbdf',
-        3
+        '151d65141a9a4a9c37fc0c8ac7aa23feb0981876b8198a970fb9956ca34e467c',
+        Blockchain.BITCOIN.value
     )
 
 
