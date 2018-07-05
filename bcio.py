@@ -4,7 +4,6 @@ from btc_adapter import BTCAdapter
 from blockchain import Blockchain
 import database
 
-
 Adapter = {
     Blockchain.ETHEREUM.value: EthAdapter,
     Blockchain.MULTICHAIN.value: MCAdapter,
