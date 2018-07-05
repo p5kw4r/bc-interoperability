@@ -69,7 +69,7 @@ Launch the python interpreter:
 $ python
 ```
 
-In interactive mode run the database setup:
+In interactive mode, run the database setup:
 
 ```
 >>> import database
