@@ -93,8 +93,7 @@ $ python
 In interactive mode, run:
 
 ```python
->>> from bcio import store, retrieve
->>> from blockchain import Blockchain
+>>> from bcio import store, retrieve, Blockchain
 >>> text = 'Hello World!'
 >>> tx_hash = store(text, Blockchain.ETHEREUM)
 >>> retrieved = retrieve(tx_hash)
