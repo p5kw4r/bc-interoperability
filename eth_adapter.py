@@ -1,4 +1,5 @@
 from web3 import Web3, HTTPProvider
+from hexbytes import HexBytes
 from adapter import Adapter
 from config import AMOUNT, ENCODING
 from database import get_credentials, add_transaction
@@ -59,7 +60,12 @@ class EthAdapter(Adapter):
     @classmethod
     def send_raw_transaction(cls, transaction):
         transaction_hash = cls.client.sendRawTransaction(transaction)
+        transaction_hash = cls.to_hex(transaction_hash)
         return transaction_hash
+
+    @staticmethod
+    def to_hex(transaction_hash):
+        return HexBytes(transaction_hash).hex()
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
