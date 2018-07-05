@@ -67,6 +67,7 @@ Run the database setup:
 
 ```python
 from bcio import database
+
 database.setup()
 ```
 
@@ -82,6 +83,7 @@ Store a text message on the Ethereum blockchain and retrieve it using the transa
 
 ```python
 from bcio import store, retrieve, Blockchain
+
 tx_hash = store('Hello World!', Blockchain.ETHEREUM)
 text = retrieve(tx_hash)
 ```
