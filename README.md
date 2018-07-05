@@ -95,9 +95,9 @@ In interactive mode, run:
 ```python
 >>> from bcio import store, retrieve
 >>> from blockchain import Blockchain
->>> text_to_store = 'Hello World!'
->>> tx_hash = store(text_to_store, Blockchain.ETHEREUM)
->>> text_retrieved = retrieve(tx_hash)
+>>> text = 'Hello World!'
+>>> tx_hash = store(text, Blockchain.ETHEREUM)
+>>> retrieved = retrieve(tx_hash)
 ```
 
 The module comes with integration for MultiChain and Bitcoin. Use `Blockchain.MULTICHAIN`, resp. `Blockchain.BITCOIN`.
