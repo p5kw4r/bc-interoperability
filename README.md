@@ -78,7 +78,7 @@ Calling the `setup` function of the `database` module will:
 
 ## Usage
 
-Store a text message on the Ethereum blockchain and retrieve it afterwards:
+Store a text message on the Ethereum blockchain and retrieve it using the transaction hash:
 
 ```python
 from bcio import store, retrieve, Blockchain
