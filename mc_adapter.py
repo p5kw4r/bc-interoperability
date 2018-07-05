@@ -26,7 +26,7 @@ class MCAdapter(Adapter):
     def extract_data(cls, transaction):
         # workaround needed because potentially multiple output addresses in
         # single transaction (and also potentially multiple data items)
-        output = cls.extract_output(transaction, 1)
+        output = cls.extract_output(transaction, output_index=1)
         return output['data'][0]
 
     @staticmethod

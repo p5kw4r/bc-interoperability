@@ -23,7 +23,7 @@ class BTCAdapter(Adapter):
 
     @classmethod
     def extract_data(cls, transaction):
-        output = cls.extract_output(transaction, 1)
+        output = cls.extract_output(transaction, output_index=1)
         asm = output['scriptPubKey']['asm']
         _, data = asm.split()
         return data
@@ -59,7 +59,7 @@ class BTCAdapter(Adapter):
     @classmethod
     def extract_amount(cls, transaction_hash):
         transaction = cls.get_transaction(transaction_hash)
-        output = cls.extract_output(transaction, 0)
+        output = cls.extract_output(transaction, output_index=0)
         return output['value']
 
     @classmethod
