@@ -72,7 +72,7 @@ $ python
 In interactive mode, run the database setup:
 
 ```python
->>> import database
+>>> from bcio import database
 >>> database.setup()
 ```
 
