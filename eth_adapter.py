@@ -50,8 +50,8 @@ class EthAdapter(Adapter):
 
     @classmethod
     def sign_transaction(cls, transaction):
-        result = cls.client.account.signTransaction(transaction, cls.key)
-        return result.rawTransaction
+        signed = cls.client.account.signTransaction(transaction, cls.key)
+        return signed.rawTransaction
 
     @classmethod
     def send_raw_transaction(cls, transaction):

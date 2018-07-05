@@ -78,13 +78,13 @@ class BTCAdapter(Adapter):
     @classmethod
     def sign_transaction(cls, transaction_hex):
         parent_outputs = []
-        signed_transaction = cls.client.signrawtransaction(
+        signed = cls.client.signrawtransaction(
             transaction_hex,
             parent_outputs,
             [cls.key]
         )
-        assert signed_transaction['complete']
-        return signed_transaction['hex']
+        assert signed['complete']
+        return signed['hex']
 
     @classmethod
     def send_raw_transaction(cls, transaction_hex):
