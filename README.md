@@ -81,3 +81,23 @@ Calling the `setup` function of the `database` module will:
 1. create tables for storing `credentials` and `transactions`
 2. seed the `credentials` table with credentials for Ethereum, MultiChain and Bitcoin
 3. seed the `transactions` table with input transactions for MultiChain and Bitcoin
+
+## Usage
+
+Launch the python interpreter:
+
+```
+$ python
+```
+
+In interactive mode, run:
+
+```python
+>>> from bcio import store, retrieve
+>>> from blockchain import Blockchain
+>>> text_to_store = 'Hello World!'
+>>> tx_hash = store(text_to_store, Blockchain.ETHEREUM)
+>>> text_retrieved = retrieve(tx_hash)
+```
+
+Alternatively, the module comes with integration for MultiChain and Bitcoin. Use `Blockchain.MULTICHAIN`, resp. `Blockchain.BITCOIN`.
