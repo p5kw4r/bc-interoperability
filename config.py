@@ -3,6 +3,8 @@ from blockchain import Blockchain
 AMOUNT = 0
 ENCODING = 'utf-8'
 
+DATABASE = 'bcio.db'
+
 CREDENTIALS = {
     Blockchain.ETHEREUM: {
         'blockchain_id': Blockchain.ETHEREUM.value,
