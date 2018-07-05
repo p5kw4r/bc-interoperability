@@ -60,3 +60,24 @@ Install dependencies:
 ```
 $ pip install --user web3 mcrpc python-bitcoinrpc
 ```
+
+### Database
+
+Launch a python interpreter:
+
+```
+$ python
+```
+
+Run the database setup:
+
+```
+>>> import database
+>>> database.setup()
+```
+
+Calling the `setup` function of the `database` module will:
+
+1. create tables for `credentials` and `transactions`
+2. seed the `credentials` table with credentials for Ethereum, MultiChain and Bitcoin
+3. seed the `transactions` table with input transactions for MultiChain and Bitcoin
