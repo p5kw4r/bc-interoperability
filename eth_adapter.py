@@ -60,12 +60,7 @@ class EthAdapter(Adapter):
     @classmethod
     def send_raw_transaction(cls, transaction):
         transaction_hash = cls.client.sendRawTransaction(transaction)
-        transaction_hash = cls.to_hex(transaction_hash)
-        return transaction_hash
-
-    @staticmethod
-    def to_hex(transaction_hash):
-        return HexBytes(transaction_hash).hex()
+        return transaction_hash.hex()
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
