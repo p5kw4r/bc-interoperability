@@ -4,6 +4,9 @@ from datetime import datetime
 DATABASE = 'bcio.db'
 
 connection = connect(DATABASE)
+
+# Rows wrapped with the Row class can be accessed both by index (like tuples)
+# and case-insensitively by name
 connection.row_factory = Row
 
 
