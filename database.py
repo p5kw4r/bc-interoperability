@@ -35,34 +35,34 @@ def create_tables():
 
 def seed_credentials():
     add_credentials(
-        Blockchain.ETHEREUM.value,
-        '0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe',
-        'd54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
+        blockchain_id=Blockchain.ETHEREUM.value,
+        address='0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe',
+        key='d54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662'
     )
     add_credentials(
-        Blockchain.MULTICHAIN.value,
-        '1MRQf6mYRDoXjtoKVBi8huxBC69zmSzheYN4yM',
-        'V7BFGjp4wrowNSJDSouXVFJQkwZxMFDScba4SkHYA9aYjEDhLrFBV2Nd',
-        'multichainrpc',
-        'GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
+        blockchain_id=Blockchain.MULTICHAIN.value,
+        address='1MRQf6mYRDoXjtoKVBi8huxBC69zmSzheYN4yM',
+        key='V7BFGjp4wrowNSJDSouXVFJQkwZxMFDScba4SkHYA9aYjEDhLrFBV2Nd',
+        user='multichainrpc',
+        password='GkHfnch8QBgqvZJeMLyb57h42h6TZREr25Uhp5iZ8T2E'
     )
     add_credentials(
-        Blockchain.BITCOIN.value,
-        '2NGMq7iBuJTeDMQPxSaEQVqMtdt3VQxuN7B',
-        'cS6kdk7zxTCij8HpXHE8Kdnh1uAM46PU5LNtQxpBZ6YjP3t3zgWL',
-        'bitcoinrpc',
-        'f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae'
+        blockchain_id=Blockchain.BITCOIN.value,
+        address='2NGMq7iBuJTeDMQPxSaEQVqMtdt3VQxuN7B',
+        key='cS6kdk7zxTCij8HpXHE8Kdnh1uAM46PU5LNtQxpBZ6YjP3t3zgWL',
+        user='bitcoinrpc',
+        password='f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae'
     )
 
 
 def seed_transactions():
     add_transaction(
-        '826e7100deeef7def0bfed7f5160ae6ac55a3a0cc8fca660a30488c1755e370d',
-        Blockchain.MULTICHAIN.value
+        transaction_hash='826e7100deeef7def0bfed7f5160ae6ac55a3a0cc8fca660a30488c1755e370d',
+        blockchain_id=Blockchain.MULTICHAIN.value
     )
     add_transaction(
-        '151d65141a9a4a9c37fc0c8ac7aa23feb0981876b8198a970fb9956ca34e467c',
-        Blockchain.BITCOIN.value
+        transaction_hash='151d65141a9a4a9c37fc0c8ac7aa23feb0981876b8198a970fb9956ca34e467c',
+        blockchain_id=Blockchain.BITCOIN.value
     )
 
 
