@@ -11,7 +11,7 @@ PORT = '7324'
 
 class MCAdapter(Adapter):
 
-    credentials = database.get_credentials(Blockchain.MULTICHAIN.value)
+    credentials = database.get_credentials(Blockchain.MULTICHAIN)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -42,7 +42,7 @@ class MCAdapter(Adapter):
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction(
-            Blockchain.MULTICHAIN.value
+            Blockchain.MULTICHAIN
         )
         data_hex = cls.to_hex(text)
         inputs = [{'txid': input_transaction_hash, 'vout': 0}]
@@ -77,4 +77,4 @@ class MCAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        database.add_transaction(transaction_hash, Blockchain.MULTICHAIN.value)
+        database.add_transaction(transaction_hash, Blockchain.MULTICHAIN)

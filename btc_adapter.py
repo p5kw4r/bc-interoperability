@@ -8,7 +8,7 @@ import database
 
 class BTCAdapter(Adapter):
 
-    credentials = database.get_credentials(Blockchain.BITCOIN.value)
+    credentials = database.get_credentials(Blockchain.BITCOIN)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -41,7 +41,7 @@ class BTCAdapter(Adapter):
     @classmethod
     def create_transaction(cls, text):
         input_transaction_hash = database.get_latest_transaction(
-            Blockchain.BITCOIN.value
+            Blockchain.BITCOIN
         )
         change = cls.get_change(input_transaction_hash)
         data_hex = cls.to_hex(text)
@@ -91,4 +91,4 @@ class BTCAdapter(Adapter):
 
     @staticmethod
     def add_transaction_to_database(transaction_hash):
-        database.add_transaction(transaction_hash, Blockchain.BITCOIN.value)
+        database.add_transaction(transaction_hash, Blockchain.BITCOIN)

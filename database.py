@@ -48,16 +48,16 @@ def seed_transactions():
     add_transaction(**TRANSACTIONS[Blockchain.BITCOIN])
 
 
-def add_transaction(transaction_hash, blockchain_id):
+def add_transaction(transaction_hash, blockchain):
     now = datetime.now()
     with connection:
         connection.execute(
             'INSERT INTO transactions VALUES (?, ?, ?)',
-            (transaction_hash, blockchain_id, now)
+            (transaction_hash, blockchain.value, now)
         )
 
 
-def get_latest_transaction(blockchain_id):
+def get_latest_transaction(blockchain):
     cursor = connection.execute(
         '''
         SELECT hash 
@@ -66,7 +66,7 @@ def get_latest_transaction(blockchain_id):
         ORDER BY issued_at DESC 
         LIMIT 1
         ''',
-        (blockchain_id,)
+        (blockchain.value,)
     )
     row = cursor.fetchone()
     return row['hash']
@@ -81,18 +81,18 @@ def get_blockchain_id(transaction_hash):
     return row['blockchain_id']
 
 
-def add_credentials(blockchain_id, address, key, user='', password=''):
+def add_credentials(blockchain, address, key, user='', password=''):
     with connection:
         connection.execute(
             '''
             INSERT INTO credentials 
             VALUES (?, ?, ?, ?, ?)
             ''',
-            (blockchain_id, address, key, user, password)
+            (blockchain.value, address, key, user, password)
         )
 
 
-def update_credentials(blockchain_id, address, key, user='', password=''):
+def update_credentials(blockchain, address, key, user='', password=''):
     with connection:
         connection.execute(
             '''
@@ -104,14 +104,14 @@ def update_credentials(blockchain_id, address, key, user='', password=''):
             password=? 
             WHERE id=?
             ''',
-            (address, key, user, password, blockchain_id)
+            (address, key, user, password, blockchain.value)
         )
 
 
-def get_credentials(blockchain_id):
+def get_credentials(blockchain):
     cursor = connection.execute(
         'SELECT address, key, user, password FROM credentials WHERE id=?',
-        (blockchain_id,)
+        (blockchain.value,)
     )
     row = cursor.fetchone()
     return row
