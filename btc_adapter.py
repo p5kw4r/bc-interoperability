@@ -45,12 +45,12 @@ class BTCAdapter(MCBTCAdapter):
 
     @classmethod
     def get_change(cls, transaction_hash):
-        amount = cls.extract_amount(transaction_hash)
+        balance = cls.extract_balance(transaction_hash)
         relay_fee = cls.get_relay_fee()
-        return amount - relay_fee
+        return balance - relay_fee
 
     @classmethod
-    def extract_amount(cls, transaction_hash):
+    def extract_balance(cls, transaction_hash):
         transaction = cls.get_transaction(transaction_hash)
         output = cls.extract_output(transaction, output_index=0)
         return output['value']
