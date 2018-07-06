@@ -114,6 +114,38 @@ Stop the blockchain:
 > stop
 ```
 
+### Bitcoin
+
+To connect to the public testnet of Bitcoin (`testnet3`), the following settings are required in the `~/.bitcoin/bitcoin.conf` file:
+
+```
+testnet = 1
+rpcuser = 'bitcoinrpc'
+rpcpassword = 'password'
+```
+
+A sample configuration file is available [here](https://github.com/bitcoin/bitcoin/blob/master/contrib/debian/examples/bitcoin.conf).
+
+> In `bitcoind` rpc connections are allowed by default, in `bitcoin-qt` they are not and `server = 1` is required in the configuration file.
+
+To sync the node with the public testnet:
+
+```
+$ bitcoind
+```
+
+The progress can be monitored with:
+
+```
+$ tail -f ~/.bitcoin/testnet3/debug.log
+```
+
+To stop the blockchain:
+
+```
+$ bitcoin-cli stop
+```
+
 ### Database
 
 Run the database setup:
