@@ -80,6 +80,59 @@ Calling the `setup` function of the [`database`](database.py) module will:
 
 > Seed values are read from the [`config`](config.py) module.
 
+### MultiChain
+
+First we will create a new blockchain named `chain1`:
+
+```
+$ multichain-util create chain1
+```
+
+The API credentials for the blockchain are stored in the `~/.multichain/chain1/multichain.conf` file.
+The blockchain's settings are stored in `~/.multichain/chain1/params.dat` and can be modified.
+
+> Once the blockchain is initialized, **these parameters cannot be changed**.
+
+Initialize the blockchain, including creating the genesis block:
+
+```
+$ multichaind chain1 -daemon
+```
+
+Enter interactive mode:
+
+```
+$ multichain-cli chain1
+```
+
+In interactive mode, generate public/private key pairs that are not stored in the wallet or drawn from the node's key pool (for external key management):
+
+```
+> createkeypairs
+[
+    {
+        "address" : "1LKfR5yQVKx3YJ27enyKDNske7XFHzkN6bm43Y",
+        "pubkey" : "0323187cd83c9dde13f223b5df1fb2899e645e8b0cd1fa73ae61c41b07ce9cd7a6",
+        "privkey" : "VHrFLuvdBeb1oVTmKD48Sdm1ovoc8mS5pbrk2gpKhCUWh72LavvAF8jx"
+    }
+]
+```
+
+Before, we can use the generated address in transactions, we have to grant it permission to send and receive within the blockchain:
+
+```
+> grant 1LKfR5yQVKx3YJ27enyKDNske7XFHzkN6bm43Y send,receive
+ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
+```
+
+> This command will return a transaction hash.
+
+Stop the blockchain:
+
+```
+> stop
+```
+
 ## Usage
 
 Store a text message on the Ethereum blockchain and retrieve it using the transaction hash:
