@@ -15,6 +15,12 @@ This project is built with:
 
 ### Python dependencies
 
+Install packages using your favourite package manager:
+
+```
+# pacman -S python python-pip
+```
+
 #### With virtual environment
 
 Create a virtual environment within the project (for `python >= 3.3`):
@@ -51,6 +57,12 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 ### Database
 
+Install the following package using your favourite package manager:
+
+```
+# pacman -S sqlite
+```
+
 Run the database setup:
 
 ```python
@@ -69,6 +81,12 @@ Calling the `setup` function of the [`database`](database.py) module will:
 > Seed values are read from the [`config`](config.py) module.
 
 ### MultiChain
+
+On Arch Linux, a multichain package is available from the Arch User Repository:
+
+```
+$ yay -S multichain-alpha
+```
 
 First we will create a new blockchain named `chain1`:
 
@@ -124,6 +142,14 @@ Stop the blockchain:
 ```
 
 ### Bitcoin
+
+Install the following packages using your favourite package manager:
+
+```
+# pacman -S bitcoind bitcoin-cli
+```
+
+> A GUI client is available in `bitcoin-qt`.
 
 To connect to the public testnet of Bitcoin (`testnet3`), the following settings are required in the `~/.bitcoin/bitcoin.conf` file:
 
