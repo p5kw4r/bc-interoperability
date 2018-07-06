@@ -71,14 +71,14 @@ from bcio import database
 database.setup()
 ```
 
-Calling the `setup` function of the `database` module will:
+Calling the `setup` function of the [`database`](database.py) module will:
 
 1. drop `credentials` and `transactions` tables if they already exist
 2. create tables for storing `credentials` and `transactions`
 3. seed the `credentials` table with credentials for Ethereum, MultiChain and Bitcoin
 4. seed the `transactions` table with input transactions for MultiChain and Bitcoin
 
-> Seed values are read from `config` module.
+> Seed values are read from [`config`](config.py) module.
 
 ## Usage
 
