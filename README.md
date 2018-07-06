@@ -112,7 +112,7 @@ rpcuser = 'bitcoinrpc'
 rpcpassword = 'password'
 ```
 
-A sample configuration file is available [here](https://github.com/bitcoin/bitcoin/blob/master/contrib/debian/examples/bitcoin.conf).
+A more complete sample configuration file is available [here](https://github.com/bitcoin/bitcoin/blob/master/contrib/debian/examples/bitcoin.conf).
 
 > In `bitcoind` rpc connections are allowed by default, in `bitcoin-qt` `server = 1` is required in the configuration file to allow rpc connections.
 
