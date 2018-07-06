@@ -26,20 +26,20 @@ def create_tables():
     with connection:
         connection.execute(
             '''
-            CREATE TABLE transactions 
-            (hash TEXT PRIMARY KEY, 
-            blockchain_id INTEGER, 
-            issued_at TIMESTAMP)
-            '''
-        )
-        connection.execute(
-            '''
             CREATE TABLE credentials 
             (id INTEGER PRIMARY KEY, 
             address TEXT, 
             key TEXT, 
             user TEXT, 
             password TEXT)
+            '''
+        )
+        connection.execute(
+            '''
+            CREATE TABLE transactions 
+            (hash TEXT PRIMARY KEY, 
+            blockchain_id INTEGER, 
+            issued_at TIMESTAMP)
             '''
         )
 
@@ -52,42 +52,6 @@ def seed_credentials():
 def seed_transactions():
     for transaction in TRANSACTIONS:
         add_transaction(**transaction)
-
-
-def add_transaction(transaction_hash, blockchain):
-    blockchain_id = blockchain.value
-    now = datetime.now()
-    with connection:
-        connection.execute(
-            'INSERT INTO transactions VALUES (?, ?, ?)',
-            (transaction_hash, blockchain_id, now)
-        )
-
-
-def get_latest_transaction(blockchain):
-    blockchain_id = blockchain.value
-    cursor = connection.execute(
-        '''
-        SELECT hash 
-        FROM transactions 
-        WHERE blockchain_id=? 
-        ORDER BY issued_at DESC 
-        LIMIT 1
-        ''',
-        (blockchain_id,)
-    )
-    row = cursor.fetchone()
-    return row['hash']
-
-
-def get_blockchain(transaction_hash):
-    cursor = connection.execute(
-        'SELECT blockchain_id FROM transactions WHERE hash=?',
-        (transaction_hash,)
-    )
-    row = cursor.fetchone()
-    blockchain_id = row['blockchain_id']
-    return Blockchain(blockchain_id)
 
 
 def add_credentials(blockchain, address, key, user='', password=''):
@@ -127,3 +91,39 @@ def get_credentials(blockchain):
     )
     row = cursor.fetchone()
     return row
+
+
+def add_transaction(transaction_hash, blockchain):
+    blockchain_id = blockchain.value
+    now = datetime.now()
+    with connection:
+        connection.execute(
+            'INSERT INTO transactions VALUES (?, ?, ?)',
+            (transaction_hash, blockchain_id, now)
+        )
+
+
+def get_latest_transaction(blockchain):
+    blockchain_id = blockchain.value
+    cursor = connection.execute(
+        '''
+        SELECT hash 
+        FROM transactions 
+        WHERE blockchain_id=? 
+        ORDER BY issued_at DESC 
+        LIMIT 1
+        ''',
+        (blockchain_id,)
+    )
+    row = cursor.fetchone()
+    return row['hash']
+
+
+def get_blockchain(transaction_hash):
+    cursor = connection.execute(
+        'SELECT blockchain_id FROM transactions WHERE hash=?',
+        (transaction_hash,)
+    )
+    row = cursor.fetchone()
+    blockchain_id = row['blockchain_id']
+    return Blockchain(blockchain_id)
