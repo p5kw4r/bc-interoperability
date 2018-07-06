@@ -13,7 +13,7 @@ This project is built with:
 
 ## Setup
 
-### Python dependencies
+### Python
 
 Install packages using your favourite package manager:
 
@@ -82,7 +82,7 @@ Calling the `setup` function of the [`database`](database.py) module will:
 
 ### MultiChain
 
-On Arch Linux, a multichain package is available from the Arch User Repository:
+On Arch Linux, a package is available from the Arch User Repository:
 
 ```
 $ yay -S multichain-alpha
