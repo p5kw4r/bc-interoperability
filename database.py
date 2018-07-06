@@ -10,9 +10,16 @@ connection.row_factory = Row
 
 
 def setup():
+    drop_tables_if_exist()
     create_tables()
     seed_credentials()
     seed_transactions()
+
+
+def drop_tables_if_exist():
+    with connection:
+        connection.execute('DROP TABLE credentials IF EXISTS')
+        connection.execute('DROP TABLE transactions IF EXISTS')
 
 
 def create_tables():
