@@ -57,7 +57,7 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 ### Database
 
-Install the following package using your favourite package manager:
+Install package using your favourite package manager:
 
 ```
 # pacman -S sqlite
@@ -143,7 +143,7 @@ Stop the blockchain:
 
 ### Bitcoin
 
-Install the following packages using your favourite package manager:
+Install packages using your favourite package manager:
 
 ```
 # pacman -S bitcoind bitcoin-cli
