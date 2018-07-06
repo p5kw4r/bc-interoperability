@@ -72,13 +72,14 @@ def get_latest_transaction(blockchain):
     return row['hash']
 
 
-def get_blockchain_id(transaction_hash):
+def get_blockchain(transaction_hash):
     cursor = connection.execute(
         'SELECT blockchain_id FROM transactions WHERE hash=?',
         (transaction_hash,)
     )
     row = cursor.fetchone()
-    return row['blockchain_id']
+    blockchain_id = row['blockchain_id']
+    return Blockchain(blockchain_id)
 
 
 def add_credentials(blockchain, address, key, user='', password=''):

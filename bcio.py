@@ -5,20 +5,20 @@ from blockchain import Blockchain
 import database
 
 Adapter = {
-    Blockchain.ETHEREUM.value: EthAdapter,
-    Blockchain.MULTICHAIN.value: MCAdapter,
-    Blockchain.BITCOIN.value: BTCAdapter
+    Blockchain.ETHEREUM: EthAdapter,
+    Blockchain.MULTICHAIN: MCAdapter,
+    Blockchain.BITCOIN: BTCAdapter
 }
 
 
 def store(text, blockchain):
-    adapter = Adapter[blockchain.value]
+    adapter = Adapter[blockchain]
     transaction_hash = adapter.store(text)
     return transaction_hash
 
 
 def retrieve(transaction_hash):
-    blockchain_id = database.get_blockchain_id(transaction_hash)
-    adapter = Adapter[blockchain_id]
+    blockchain = database.get_blockchain(transaction_hash)
+    adapter = Adapter[blockchain]
     text = adapter.retrieve(transaction_hash)
     return text
