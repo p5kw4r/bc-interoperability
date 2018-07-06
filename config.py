@@ -2,9 +2,7 @@ from blockchain import Blockchain
 
 AMOUNT = 0
 ENCODING = 'utf-8'
-
 DATABASE = 'bcio.db'
-
 CREDENTIALS = {
     Blockchain.ETHEREUM: {
         'blockchain': Blockchain.ETHEREUM,
@@ -26,7 +24,6 @@ CREDENTIALS = {
         'password': 'f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae'
     }
 }
-
 TRANSACTIONS = {
     Blockchain.MULTICHAIN: {
         'transaction_hash': '826e7100deeef7def0bfed7f5160ae6ac55a3a0cc8fca660a30488c1755e370d',
