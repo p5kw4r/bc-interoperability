@@ -45,14 +45,13 @@ def create_tables():
 
 
 def seed_credentials():
-    add_credentials(**CREDENTIALS[Blockchain.ETHEREUM])
-    add_credentials(**CREDENTIALS[Blockchain.MULTICHAIN])
-    add_credentials(**CREDENTIALS[Blockchain.BITCOIN])
+    for credentials in CREDENTIALS:
+        add_credentials(**credentials)
 
 
 def seed_transactions():
-    add_transaction(**TRANSACTIONS[Blockchain.MULTICHAIN])
-    add_transaction(**TRANSACTIONS[Blockchain.BITCOIN])
+    for transaction in TRANSACTIONS:
+        add_transaction(**transaction)
 
 
 def add_transaction(transaction_hash, blockchain):
