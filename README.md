@@ -113,7 +113,7 @@ Before, we can use the generated address in transactions, we have to grant it pe
 ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
 ```
 
-> This command will return a transaction hash.
+> This command will return a transaction hash (which can be used as seed transaction).
 
 Stop the blockchain:
 
