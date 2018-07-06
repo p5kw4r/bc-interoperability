@@ -18,8 +18,8 @@ def setup():
 
 def drop_tables_if_exist():
     with connection:
-        connection.execute('DROP TABLE credentials IF EXISTS')
-        connection.execute('DROP TABLE transactions IF EXISTS')
+        connection.execute('DROP TABLE IF EXISTS credentials')
+        connection.execute('DROP TABLE IF EXISTS transactions')
 
 
 def create_tables():
