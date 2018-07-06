@@ -78,7 +78,7 @@ Calling the `setup` function of the [`database`](database.py) module will:
 3. seed the `credentials` table with credentials for Ethereum, MultiChain and Bitcoin
 4. seed the `transactions` table with input transactions for MultiChain and Bitcoin
 
-> Seed values are read from [`config`](config.py) module.
+> Seed values are read from the [`config`](config.py) module.
 
 ## Usage
 
