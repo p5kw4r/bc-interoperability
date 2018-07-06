@@ -1,8 +1,7 @@
-from enum import Enum, unique
+from enum import Enum, auto
 
 
-@unique
 class Blockchain(Enum):
-    ETHEREUM = 1
-    MULTICHAIN = 2
-    BITCOIN = 3
+    ETHEREUM = auto()
+    MULTICHAIN = auto()
+    BITCOIN = auto()
