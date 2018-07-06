@@ -70,7 +70,7 @@ $ multichain-util create chain1
 ```
 
 The API credentials for the blockchain are stored in the `~/.multichain/chain1/multichain.conf` file.
-The blockchain's settings are stored in `~/.multichain/chain1/params.dat` and can be modified.
+The blockchain's settings are stored in the `~/.multichain/chain1/params.dat` file.
 
 > Once the blockchain is initialized, **these parameters cannot be changed**.
 
