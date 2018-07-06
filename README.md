@@ -97,6 +97,7 @@ In interactive mode, generate public/private key pairs that are not stored in th
 
 ```
 > createkeypairs
+
 [
     {
         "address" : "1LKfR5yQVKx3YJ27enyKDNske7XFHzkN6bm43Y",
@@ -110,6 +111,7 @@ Before, we can use the generated address in transactions, we have to grant it pe
 
 ```
 > grant 1LKfR5yQVKx3YJ27enyKDNske7XFHzkN6bm43Y send,receive
+
 ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
 ```
 
