@@ -169,7 +169,7 @@ To sync the node with the public testnet:
 $ bitcoind
 ```
 
-The progress can be monitored with:
+The progress of the syncing process can be monitored with:
 
 ```
 $ tail -f ~/.bitcoin/testnet3/debug.log
