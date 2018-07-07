@@ -80,6 +80,75 @@ database.setup()
 
 > Seed values are read from the [`config`](config.py) module.
 
+### Ethereum
+
+Install package using your favourite package manager:
+
+```
+# pacman -S go-ethereum
+```
+
+Create the genesis block. For a private network, you usually want a custom genesis block. Here's an example of a custom `genesis.json` file:
+
+```
+{
+    "config": {
+        "chainId": 15,
+        "homesteadBlock": 0,
+        "eip155Block": 0,
+        "eip158Block": 0
+    },
+    "difficulty": "200000000",
+    "gasLimit": "2100000"
+}
+```
+
+To create a database that uses this genesis block, run the following command. This will import and set the canonical genesis block for your chain:
+
+```
+$ geth --datadir path/to/custom/data/folder init genesis.json
+```
+
+> Future runs of `geth` on this data directory will use the genesis block you have defined.
+
+Launch the `geth` client and allow rpc connections:
+
+```
+$ geth --datadir path/to/custom/data/folder --networkid 3107 --fast --rpc --rpcapi eth,web3,personal,net,miner,admin
+```
+
+Enter interactive mode:
+
+```
+$ geth attach http://127.0.0.1:8545
+```
+
+In interactive mode, set the account that will receive ether from the mining process:
+
+```
+> miner.setEtherbase(eth.accounts[0])
+
+true
+```
+
+Launch the mining process with 2 threads:
+
+```
+> miner.start(2)
+
+null
+```
+
+> You must mine every transaction in your private network. Thus, it makes sense to always leave the miner running.
+
+To stop the mining process:
+
+```
+$ miner.stop()
+
+true
+```
+
 ### MultiChain
 
 On Arch Linux, a package is available from the Arch User Repository:
