@@ -90,7 +90,7 @@ Install package using your favourite package manager:
 
 Create the genesis block. For a private network, you usually want a custom genesis block. Here's an example of a custom `genesis.json` file:
 
-```
+```json
 {
     "config": {
         "chainId": 15,
