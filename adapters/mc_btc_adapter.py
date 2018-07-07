@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from binascii import unhexlify
-from adapter import Adapter
+from adapters.adapter import Adapter
 from config import ENCODING
 
 

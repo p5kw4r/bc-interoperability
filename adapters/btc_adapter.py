@@ -1,6 +1,6 @@
 from binascii import hexlify
 from bitcoinrpc.authproxy import AuthServiceProxy
-from mc_btc_adapter import MCBTCAdapter
+from adapters.mc_btc_adapter import MCBTCAdapter
 from config import ENCODING
 from blockchain import Blockchain
 import database

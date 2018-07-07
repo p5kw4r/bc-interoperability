@@ -1,6 +1,6 @@
 from binascii import hexlify
 from mcrpc import RpcClient
-from mc_btc_adapter import MCBTCAdapter
+from adapters.mc_btc_adapter import MCBTCAdapter
 from config import AMOUNT, ENCODING
 from blockchain import Blockchain
 import database

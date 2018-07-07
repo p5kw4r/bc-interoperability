@@ -1,5 +1,5 @@
 from web3 import Web3, HTTPProvider
-from adapter import Adapter
+from adapters.adapter import Adapter
 from config import AMOUNT, ENCODING
 from blockchain import Blockchain
 import database

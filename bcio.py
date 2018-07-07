@@ -1,6 +1,6 @@
-from eth_adapter import EthAdapter
-from mc_adapter import MCAdapter
-from btc_adapter import BTCAdapter
+from adapters.eth_adapter import EthAdapter
+from adapters.mc_adapter import MCAdapter
+from adapters.btc_adapter import BTCAdapter
 from blockchain import Blockchain
 import database
 
