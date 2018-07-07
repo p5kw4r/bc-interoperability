@@ -171,7 +171,7 @@ true
 
 ### MultiChain
 
-On Arch Linux, a package is available from the Arch User Repository. Install package using your favourite aur helper:
+On Arch Linux, a package is available from the Arch User Repository. Install package using your favourite AUR helper:
 
 ```
 $ yay -S multichain-alpha
