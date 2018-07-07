@@ -164,7 +164,7 @@ null
 To stop the mining process:
 
 ```
-$ miner.stop()
+> miner.stop()
 
 true
 ```
