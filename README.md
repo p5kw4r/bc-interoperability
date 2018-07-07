@@ -123,7 +123,15 @@ Enter interactive mode:
 $ geth attach http://127.0.0.1:8545
 ```
 
-In interactive mode, set the account that will receive ether from the mining process:
+In interactive mode, import a private key to add it to the wallet to be able to receive the mining reward (in the next step):
+
+```
+> personal.importRawKey("d54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662", "")
+```
+
+> This key can be removed from the wallet, after it has earned some ethers to spend in transactions.
+
+Set the account that will receive ether from the mining process:
 
 ```
 > miner.setEtherbase(eth.accounts[0])
