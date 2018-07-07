@@ -126,10 +126,21 @@ $ geth attach http://127.0.0.1:8545
 In interactive mode, import a private key to add it to the wallet to be able to receive the mining reward (in the next step):
 
 ```
-> personal.importRawKey("d54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662", "")
+> personal.importRawKey("d54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662", "passphrase")
+
+"0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe"
 ```
 
-> This key can be removed from the wallet, after it has earned some ethers to spend in transactions.
+> This command returns the address corresponding to the private key.
+> The key can be removed from the wallet, after it has earned some ethers to spend in transactions.
+
+To convert the address to an address with an [EIP55](https://github.com/ethereum/EIPs/issues/55) checksum:
+
+```
+> web3.toChecksumAddress("0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe")
+
+"0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe"
+```
 
 Set the account that will receive ether from the mining process:
 
