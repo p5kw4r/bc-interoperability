@@ -94,8 +94,8 @@ First we will create a new blockchain named `chain1`:
 $ multichain-util create chain1
 ```
 
-The API credentials for the blockchain are stored in the `~/.multichain/chain1/multichain.conf` file.
-The blockchain's settings are stored in the `~/.multichain/chain1/params.dat` file.
+> The API credentials for the blockchain are stored in the `~/.multichain/chain1/multichain.conf` file.
+> The blockchain's settings are stored in the `~/.multichain/chain1/params.dat` file.
 
 > Once the blockchain is initialized, **these parameters cannot be changed**.
 
@@ -159,7 +159,7 @@ rpcuser = 'bitcoinrpc'
 rpcpassword = 'password'
 ```
 
-A more complete sample configuration file is available [here](https://github.com/bitcoin/bitcoin/blob/master/contrib/debian/examples/bitcoin.conf).
+> A more complete sample configuration file is available [here](https://github.com/bitcoin/bitcoin/blob/master/contrib/debian/examples/bitcoin.conf).
 
 > In `bitcoind` rpc connections are allowed by default, in `bitcoin-qt` `server = 1` is required in the configuration file to allow rpc connections.
 
@@ -192,4 +192,4 @@ tx_hash = store('Hello World!', Blockchain.ETHEREUM)
 text = retrieve(tx_hash)
 ```
 
-Alternatively, the module comes with integration for MultiChain (`Blockchain.MULTICHAIN`) and Bitcoin (`Blockchain.BITCOIN`).
+> Alternatively, the module comes with integration for MultiChain (`Blockchain.MULTICHAIN`) and Bitcoin (`Blockchain.BITCOIN`).
