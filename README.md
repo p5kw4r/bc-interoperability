@@ -98,7 +98,7 @@ Create the genesis block. For a private network, you usually want a custom genes
         "eip155Block": 0,
         "eip158Block": 0
     },
-    "difficulty": "200000000",
+    "difficulty": "51",
     "gasLimit": "2100000"
 }
 ```
