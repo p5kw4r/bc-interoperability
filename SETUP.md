@@ -148,7 +148,7 @@ Launch the mining process with 2 threads:
 null
 ```
 
-> You must mine every transaction in your private network. Thus, it makes sense to always leave the miner running.
+> Every transaction must be mined in your private network. Thus, it makes sense to always leave the miner running.
 
 To stop the mining process:
 
