@@ -75,6 +75,8 @@ Install package using your favourite package manager:
 # pacman -S go-ethereum
 ```
 
+### Creating a Private Testnet
+
 Create the genesis block. For a private network, you usually want a custom genesis block. Here's an example of a custom `genesis.json` file:
 
 ```json
@@ -164,6 +166,8 @@ On Arch Linux, a package is available from the Arch User Repository. Install pac
 $ yay -S multichain-alpha
 ```
 
+### Creating a Private Testnet
+
 First we will create a new blockchain named `chain1`:
 
 ```
@@ -226,6 +230,8 @@ Install packages using your favourite package manager:
 ```
 
 > A GUI client is available in `bitcoin-qt`.
+
+### Connecting to the Public Testnet
 
 To connect to the public testnet of Bitcoin (`testnet3`), the following settings are required in the `~/.bitcoin/bitcoin.conf` file:
 
