@@ -2,7 +2,7 @@
 
 ## Python
 
-Install packages using your favourite package manager:
+Install the following packages using your favourite package manager:
 
 ```
 # pacman -S python python-pip
@@ -69,7 +69,7 @@ database.setup()
 
 ## Ethereum
 
-Install package using your favourite package manager:
+Install the following package using your favourite package manager:
 
 ```
 # pacman -S go-ethereum
@@ -160,7 +160,7 @@ true
 
 ## MultiChain
 
-On Arch Linux, a package is available from the Arch User Repository. Install package using your favourite AUR helper:
+On Arch Linux, a package is available from the Arch User Repository. Install the following package using your favourite AUR helper:
 
 ```
 $ yay -S multichain-alpha
@@ -223,7 +223,7 @@ Stop the blockchain:
 
 ## Bitcoin
 
-Install packages using your favourite package manager:
+Install the following packages using your favourite package manager:
 
 ```
 # pacman -S bitcoind bitcoin-cli
