@@ -12,8 +12,7 @@ connection.row_factory = Row
 def with_connection(func):
     def wrapper(*args, **kwargs):
         with connection:
-            result = func(*args, **kwargs)
-        return result
+            return func(*args, **kwargs)
     return wrapper
 
 
