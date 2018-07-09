@@ -9,6 +9,13 @@ connection = connect(DATABASE)
 connection.row_factory = Row
 
 
+def with_connection(func):
+    def wrapper(*args, **kwargs):
+        with connection:
+            return func(*args, **kwargs)
+    return wrapper
+
+
 def setup():
     drop_tables_if_exist()
     create_tables()
@@ -16,32 +23,32 @@ def setup():
     seed_transactions()
 
 
+@with_connection
 def drop_tables_if_exist():
-    with connection:
-        connection.execute('DROP TABLE IF EXISTS credentials')
-        connection.execute('DROP TABLE IF EXISTS transactions')
+    connection.execute('DROP TABLE IF EXISTS credentials')
+    connection.execute('DROP TABLE IF EXISTS transactions')
 
 
+@with_connection
 def create_tables():
-    with connection:
-        connection.execute(
-            '''
-            CREATE TABLE credentials 
-            (id INTEGER PRIMARY KEY, 
-            address TEXT, 
-            key TEXT, 
-            user TEXT, 
-            password TEXT)
-            '''
-        )
-        connection.execute(
-            '''
-            CREATE TABLE transactions 
-            (hash TEXT PRIMARY KEY, 
-            blockchain_id INTEGER, 
-            issued_at TIMESTAMP)
-            '''
-        )
+    connection.execute(
+        '''
+        CREATE TABLE credentials 
+        (id INTEGER PRIMARY KEY, 
+        address TEXT, 
+        key TEXT, 
+        user TEXT, 
+        password TEXT)
+        '''
+    )
+    connection.execute(
+        '''
+        CREATE TABLE transactions 
+        (hash TEXT PRIMARY KEY, 
+        blockchain_id INTEGER, 
+        issued_at TIMESTAMP)
+        '''
+    )
 
 
 def seed_credentials():
@@ -54,33 +61,33 @@ def seed_transactions():
         add_transaction(**transaction)
 
 
+@with_connection
 def add_credentials(blockchain, address, key, user, password):
     blockchain_id = blockchain.value
-    with connection:
-        connection.execute(
-            '''
-            INSERT INTO credentials 
-            VALUES (?, ?, ?, ?, ?)
-            ''',
-            (blockchain_id, address, key, user, password)
-        )
+    connection.execute(
+        '''
+        INSERT INTO credentials 
+        VALUES (?, ?, ?, ?, ?)
+        ''',
+        (blockchain_id, address, key, user, password)
+    )
 
 
+@with_connection
 def update_credentials(blockchain, address, key, user='', password=''):
     blockchain_id = blockchain.value
-    with connection:
-        connection.execute(
-            '''
-            UPDATE credentials 
-            SET 
-            address=?, 
-            key=?, 
-            user=?, 
-            password=? 
-            WHERE id=?
-            ''',
-            (address, key, user, password, blockchain_id)
-        )
+    connection.execute(
+        '''
+        UPDATE credentials 
+        SET 
+        address=?, 
+        key=?, 
+        user=?, 
+        password=? 
+        WHERE id=?
+        ''',
+        (address, key, user, password, blockchain_id)
+    )
 
 
 def find_credentials(blockchain):
@@ -93,14 +100,14 @@ def find_credentials(blockchain):
     return row
 
 
+@with_connection
 def add_transaction(transaction_hash, blockchain):
     blockchain_id = blockchain.value
     now = datetime.now()
-    with connection:
-        connection.execute(
-            'INSERT INTO transactions VALUES (?, ?, ?)',
-            (transaction_hash, blockchain_id, now)
-        )
+    connection.execute(
+        'INSERT INTO transactions VALUES (?, ?, ?)',
+        (transaction_hash, blockchain_id, now)
+    )
 
 
 def find_latest_transaction(blockchain):
