@@ -44,7 +44,7 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 ## Database
 
-Install package using your favourite package manager:
+Install the following package using your favourite package manager:
 
 ```
 # pacman -S sqlite
