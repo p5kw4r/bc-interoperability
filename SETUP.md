@@ -53,7 +53,7 @@ Install package using your favourite package manager:
 Run the database setup:
 
 ```python
-from bcio import database
+import database
 
 database.setup()
 ```
