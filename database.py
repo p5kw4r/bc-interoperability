@@ -54,7 +54,7 @@ def seed_transactions():
         add_transaction(**transaction)
 
 
-def add_credentials(blockchain, address, key, user='', password=''):
+def add_credentials(blockchain, address, key, user, password):
     blockchain_id = blockchain.value
     with connection:
         connection.execute(
