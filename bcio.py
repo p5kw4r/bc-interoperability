@@ -18,7 +18,7 @@ def store(text, blockchain):
 
 
 def retrieve(transaction_hash):
-    blockchain = database.get_blockchain(transaction_hash)
+    blockchain = database.find_blockchain(transaction_hash)
     adapter = Adapter[blockchain]
     text = adapter.retrieve(transaction_hash)
     return text

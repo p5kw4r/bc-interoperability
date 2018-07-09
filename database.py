@@ -83,7 +83,7 @@ def update_credentials(blockchain, address, key, user='', password=''):
         )
 
 
-def get_credentials(blockchain):
+def find_credentials(blockchain):
     blockchain_id = blockchain.value
     cursor = connection.execute(
         'SELECT address, key, user, password FROM credentials WHERE id=?',
@@ -103,7 +103,7 @@ def add_transaction(transaction_hash, blockchain):
         )
 
 
-def get_latest_transaction(blockchain):
+def find_latest_transaction(blockchain):
     blockchain_id = blockchain.value
     cursor = connection.execute(
         '''
@@ -119,7 +119,7 @@ def get_latest_transaction(blockchain):
     return row['hash']
 
 
-def get_blockchain(transaction_hash):
+def find_blockchain(transaction_hash):
     cursor = connection.execute(
         'SELECT blockchain_id FROM transactions WHERE hash=?',
         (transaction_hash,)

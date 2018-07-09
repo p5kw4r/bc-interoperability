@@ -8,7 +8,7 @@ import database
 
 class BTCAdapter(MCBTCAdapter):
 
-    credentials = database.get_credentials(Blockchain.BITCOIN)
+    credentials = database.find_credentials(Blockchain.BITCOIN)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -30,7 +30,7 @@ class BTCAdapter(MCBTCAdapter):
 
     @staticmethod
     def get_latest_transaction_from_database():
-        return database.get_latest_transaction(Blockchain.BITCOIN)
+        return database.find_latest_transaction(Blockchain.BITCOIN)
 
     @staticmethod
     def to_hex(text):

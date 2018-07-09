@@ -11,7 +11,7 @@ PORT = '7324'
 
 class MCAdapter(MCBTCAdapter):
 
-    credentials = database.get_credentials(Blockchain.MULTICHAIN)
+    credentials = database.find_credentials(Blockchain.MULTICHAIN)
     address = credentials['address']
     key = credentials['key']
     rpcuser = credentials['user']
@@ -31,7 +31,7 @@ class MCAdapter(MCBTCAdapter):
 
     @staticmethod
     def get_latest_transaction_from_database():
-        return database.get_latest_transaction(Blockchain.MULTICHAIN)
+        return database.find_latest_transaction(Blockchain.MULTICHAIN)
 
     @staticmethod
     def to_hex(text):
