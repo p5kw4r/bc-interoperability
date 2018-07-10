@@ -4,7 +4,7 @@
 
 Install the following packages using your favourite package manager:
 
-```
+```console
 # pacman -S python python-pip
 ```
 
@@ -12,13 +12,13 @@ Install the following packages using your favourite package manager:
 
 Create a virtual environment within the project (for `python >= 3.3`):
 
-```
+```console
 $ python -m venv venv
 ```
 
 Activate virtual environment:
 
-```
+```console
 $ source venv/bin/activate
 ```
 
@@ -38,7 +38,7 @@ Deactivate virtual environment:
 
 Install dependencies:
 
-```
+```console
 $ pip install --user web3 mcrpc python-bitcoinrpc
 ```
 
@@ -46,7 +46,7 @@ $ pip install --user web3 mcrpc python-bitcoinrpc
 
 Install the following package using your favourite package manager:
 
-```
+```console
 # pacman -S sqlite
 ```
 
@@ -71,7 +71,7 @@ database.setup()
 
 Install the following package using your favourite package manager:
 
-```
+```console
 # pacman -S go-ethereum
 ```
 
@@ -94,7 +94,7 @@ Create the genesis block. For a private network, you usually want a custom genes
 
 To create a database that uses this genesis block, run the following command. This will import and set the canonical genesis block for your chain:
 
-```
+```console
 $ geth --datadir path/to/custom/data/folder init genesis.json
 ```
 
@@ -102,19 +102,19 @@ $ geth --datadir path/to/custom/data/folder init genesis.json
 
 Launch the `geth` client and allow rpc connections:
 
-```
+```console
 $ geth --datadir path/to/custom/data/folder --networkid 3107 --fast --rpc --rpcapi eth,web3,personal,net,miner,admin
 ```
 
 Enter interactive mode:
 
-```
+```console
 $ geth attach http://127.0.0.1:8545
 ```
 
 In interactive mode, add the private key to the node's keyichain, encrypted with a passphrase (to be able to receive mining rewards):
 
-```
+```console
 > personal.importRawKey("d54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662", "")
 
 "0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe"
@@ -126,7 +126,7 @@ In interactive mode, add the private key to the node's keyichain, encrypted with
 
 To convert the address to an address with an [EIP55](https://github.com/ethereum/EIPs/issues/55) checksum:
 
-```
+```console
 > web3.toChecksumAddress("0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe")
 
 "0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe"
@@ -134,7 +134,7 @@ To convert the address to an address with an [EIP55](https://github.com/ethereum
 
 Set the account that will receive ether from the mining process:
 
-```
+```console
 > miner.setEtherbase(eth.accounts[0])
 
 true
@@ -142,7 +142,7 @@ true
 
 Launch the mining process with 2 threads:
 
-```
+```console
 > miner.start(2)
 
 null
@@ -152,7 +152,7 @@ null
 
 To stop the mining process:
 
-```
+```console
 > miner.stop()
 
 true
@@ -162,7 +162,7 @@ true
 
 On Arch Linux, a package is available from the Arch User Repository. Install the following package using your favourite AUR helper:
 
-```
+```console
 $ yay -S multichain-alpha
 ```
 
@@ -170,7 +170,7 @@ $ yay -S multichain-alpha
 
 First we will create a new blockchain named `chain1`:
 
-```
+```console
 $ multichain-util create chain1
 ```
 
@@ -181,19 +181,19 @@ $ multichain-util create chain1
 
 Initialize the blockchain, including creating the genesis block:
 
-```
+```console
 $ multichaind chain1 -daemon
 ```
 
 Enter interactive mode:
 
-```
+```console
 $ multichain-cli chain1
 ```
 
 In interactive mode, generate public/private key pairs that are not stored in the wallet or drawn from the node's key pool (for external key management):
 
-```
+```console
 > createkeypairs
 
 [
@@ -207,7 +207,7 @@ In interactive mode, generate public/private key pairs that are not stored in th
 
 Before, we can use the generated address in transactions, we have to grant it permission to send and receive within the blockchain:
 
-```
+```console
 > grant 1LKfR5yQVKx3YJ27enyKDNske7XFHzkN6bm43Y send,receive
 
 ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
@@ -217,7 +217,7 @@ ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
 
 Stop the blockchain:
 
-```
+```console
 > stop
 ```
 
@@ -225,7 +225,7 @@ Stop the blockchain:
 
 Install the following packages using your favourite package manager:
 
-```
+```console
 # pacman -S bitcoind bitcoin-cli
 ```
 
@@ -235,7 +235,7 @@ Install the following packages using your favourite package manager:
 
 To connect to the public testnet of Bitcoin (`testnet3`), the following settings are required in the `~/.bitcoin/bitcoin.conf` file:
 
-```
+```console
 testnet = 1
 rpcuser = 'bitcoinrpc'
 rpcpassword = 'password'
@@ -247,18 +247,18 @@ rpcpassword = 'password'
 
 To sync the node with the public testnet:
 
-```
+```console
 $ bitcoind
 ```
 
 The progress of the syncing process can be monitored with:
 
-```
+```console
 $ tail -f ~/.bitcoin/testnet3/debug.log
 ```
 
 To stop the blockchain:
 
-```
+```console
 $ bitcoin-cli stop
 ```
