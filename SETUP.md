@@ -193,7 +193,7 @@ $ multichain-cli chain1
 
 In interactive mode, generate public/private key pairs that are not stored in the wallet or drawn from the node's key pool (for external key management):
 
-```console
+```
 > createkeypairs
 
 [
@@ -207,7 +207,7 @@ In interactive mode, generate public/private key pairs that are not stored in th
 
 Before, we can use the generated address in transactions, we have to grant it permission to send and receive within the blockchain:
 
-```console
+```
 > grant 1LKfR5yQVKx3YJ27enyKDNske7XFHzkN6bm43Y send,receive
 
 ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
@@ -217,7 +217,7 @@ ddcca7c4d57bb185443914cdac7a6a9d3b93743d8f39cd61a989b8bdfd09e49b
 
 Stop the blockchain:
 
-```console
+```
 > stop
 ```
 
