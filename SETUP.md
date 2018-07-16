@@ -114,7 +114,7 @@ $ geth attach http://127.0.0.1:8545
 
 In interactive mode, add the private key to the node's keyichain, encrypted with a passphrase (to be able to receive mining rewards):
 
-```console
+```
 > personal.importRawKey("d54db06062615cf2fb8133b96aa8c2becf7524c7ea7bf7f0387ee9b903b6b662", "")
 
 "0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe"
@@ -126,7 +126,7 @@ In interactive mode, add the private key to the node's keyichain, encrypted with
 
 To convert the address to an address with an [EIP55](https://github.com/ethereum/EIPs/issues/55) checksum:
 
-```console
+```
 > web3.toChecksumAddress("0xdeb92221fed1dfe74ea63c00aede6b31f02d6abe")
 
 "0xDEB92221FED1Dfe74eA63c00AEde6b31F02d6ABe"
@@ -134,7 +134,7 @@ To convert the address to an address with an [EIP55](https://github.com/ethereum
 
 Set the account that will receive ether from the mining process:
 
-```console
+```
 > miner.setEtherbase(eth.accounts[0])
 
 true
@@ -142,7 +142,7 @@ true
 
 Launch the mining process with 2 threads:
 
-```console
+```
 > miner.start(2)
 
 null
@@ -152,7 +152,7 @@ null
 
 To stop the mining process:
 
-```console
+```
 > miner.stop()
 
 true
@@ -235,7 +235,7 @@ Install the following packages using your favourite package manager:
 
 To connect to the public testnet of Bitcoin (`testnet3`), the following settings are required in the `~/.bitcoin/bitcoin.conf` file:
 
-```console
+```
 testnet = 1
 rpcuser = 'bitcoinrpc'
 rpcpassword = 'password'
