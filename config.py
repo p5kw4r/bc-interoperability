@@ -1,10 +1,24 @@
-from blockchain import Blockchain
+from blockchain import Blockchain, blockchain
 from credential import credential
 from transaction import transaction
 
 AMOUNT = 0
 ENCODING = 'utf-8'
 DATABASE = 'bcio.db'
+BLOCKCHAINS = (
+    blockchain(
+        blockchain=Blockchain.ETHEREUM,
+        name='ETHEREUM'
+    ),
+    blockchain(
+        blockchain=Blockchain.MULTICHAIN,
+        name='MULTICHAIN'
+    ),
+    blockchain(
+        blockchain=Blockchain.BITCOIN,
+        name='BITCOIN'
+    )
+)
 CREDENTIALS = (
     credential(
         blockchain=Blockchain.ETHEREUM,
