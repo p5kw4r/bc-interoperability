@@ -1,4 +1,4 @@
-# bcio
+# blockchain-interoperability
 
 A project towards blockchain interoperability.
 
