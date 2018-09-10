@@ -226,7 +226,7 @@ Stop the blockchain:
 Install the following packages using your favourite package manager:
 
 ```console
-# pacman -S bitcoind bitcoin-cli
+# pacman -S bitcoin-daemon bitcoin-cli
 ```
 
 > A GUI client is available in `bitcoin-qt`.
